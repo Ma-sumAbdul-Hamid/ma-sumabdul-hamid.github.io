@@ -1,21 +1,9 @@
-# Ma-sum Abdul-Hamid — Academic Website
+# Ma-sum Abdul-Hamid
 
-Personal academic website of Ma-sum Abdul-Hamid, Biomedical Engineering Ph.D. candidate at Penn State.
+I'm a Ph.D. candidate in Biomedical Engineering at Penn State, working at the intersection of microrobotics, acoustofluidics, biomedical AI, and translational biomaterials.
 
-**Website:** https://ma-sumabdul-hamid.github.io/
+This repository hosts my personal academic website, where I share selected research, publications, presentations, and professional milestones.
 
-## Enable GitHub Pages
+**Website:** [ma-sumabdul-hamid.github.io](https://ma-sumabdul-hamid.github.io/)
 
-1. Go to this repository's **Settings → Pages**.
-2. Under **Build and deployment**, select **Deploy from a branch**.
-3. Select branch **main** and directory **/(root)**, then **Save**.
-4. Once deployment completes, visit https://ma-sumabdul-hamid.github.io/.
-
-The entire website is in `index.html`. No framework or paid hosting is needed.
-
-## Updating
-
-Edit `index.html` in GitHub, update your content, and commit changes to `main`. GitHub Pages republishes after new commits.
-
-Research and publication statuses reflect the September 2026 CV and should be updated. Your phone number is deliberately excluded from the public website. The downloadable PDF CV has **not** been uploaded; you may add a public CV later if you wish.
-
+© 2026 Ma-sum Abdul-Hamid.
