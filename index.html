@@ -44,12 +44,6 @@ html.dark{--bg:#101b1d;--paper:#182729;--ink:#e9f5f1;--mute:#b3c3bf;--accent:#83
 @keyframes portraitInkDraw{0%{stroke-dashoffset:100;opacity:.2}20%{opacity:1}100%{stroke-dashoffset:0;opacity:1}}
 @keyframes portraitStrokesComplete{0%,75%{opacity:1}100%{opacity:0}}
 @keyframes portraitFinalArtwork{0%{opacity:0}100%{opacity:1}}
-.portrait-caption{position:relative;display:flex;justify-content:flex-end;margin:-13px clamp(10px,3vw,32px) 0 0}
-.portrait-replay{background:transparent;color:var(--accent);font-size:.76rem;font-weight:700;border:0;border-bottom:1px solid var(--accent);border-radius:0;min-height:34px;padding:5px 0;cursor:pointer}
-.portrait-replay:hover{color:var(--ink)}
-.portrait-replay:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
-.portrait-replay[hidden]{display:none}
-html:not(.dark) .hero-portrait{background:radial-gradient(ellipse 55% 69% at 57% 49%,rgba(17,25,28,.97) 10%,rgba(17,25,28,.7) 47%,transparent 80%)}
 @media(max-width:1000px) and (min-width:761px){.hero.wrap{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:4px;min-height:670px}.portrait-figure{width:100%}}
 @media(max-width:760px){.hero.wrap{grid-template-columns:1fr;min-height:auto;gap:10px;padding:48px 20px 35px}.hero.wrap>div:first-child{padding-right:0}.hero-portrait{justify-content:center}.portrait-figure{width:min(100%,510px)}.portrait-caption{margin:0 10px 0 0}}
 @media(prefers-reduced-motion:reduce){.portrait-frame.is-drawing .draw-stroke,.portrait-frame.is-drawing .portrait-stroke-svg,.portrait-frame.is-drawing .portrait-sketch{animation:none!important}.portrait-frame .portrait-stroke-svg{display:none!important}.portrait-frame .portrait-sketch{opacity:1!important}}
@@ -377,7 +371,7 @@ html:not(.dark) .hero-portrait{background:radial-gradient(ellipse 55% 69% at 57%
 <path class="draw-stroke draw-detail" pathLength="100" d="M 405 243 L 413 258 L 422 263 L 435 264 L 426 264 L 428 262 L 420 259 L 422 261 L 418 261 L 405 245" style="--delay:4.52s;--duration:0.67s"/>
 <path class="draw-stroke draw-detail" pathLength="100" d="M 468 522 L 451 533 L 443 542 L 441 539 L 436 547 L 441 540 L 442 544 L 448 536 L 469 522" style="--delay:5.24s;--duration:0.79s"/>
 <path class="draw-stroke draw-detail" pathLength="100" d="M 352 518 L 348 530 L 351 523 L 352 528 L 354 525 L 356 527 L 350 539 L 353 533 L 355 540 L 356 527 L 352 525 L 352 521" style="--delay:5.25s;--duration:0.91s"/>
-<path class="draw-stroke draw-detail" pathLength="100" d="M 473 396 L 467 402 L 461 398 L 455 406 L 461 398 L 464 401 L 459 405 L 463 402 L 466 404 L 458 409 L 468 401 L 470 402 L 472 397" style="--delay:4.54s;--duration:1.03s"/></svg></div><figcaption class="portrait-caption"><button id="replay-portrait" class="portrait-replay" type="button" aria-label="Replay the pencil drawing animation">↺ Replay drawing</button></figcaption></figure></div></div>
+<path class="draw-stroke draw-detail" pathLength="100" d="M 473 396 L 467 402 L 461 398 L 455 406 L 461 398 L 464 401 L 459 405 L 463 402 L 466 404 L 458 409 L 468 401 L 470 402 L 472 397" style="--delay:4.54s;--duration:1.03s"/></svg></div></figure></div></div>
 <section id="research"><div class="wrap"><div class="section-top"><div><div class="eyebrow">01 / Research</div><h2>Selected research areas</h2></div><p>Computational and experimental platforms for advanced biomedical applications.</p></div><div class="cards">
 <article class="card"><div class="symbol">⌁</div><h3>Magnetic microrobotics & deep RL</h3><p>PPO-based control of chiral magnetic micropropellers transporting cargo through confined channels, addressing mode switching, capture and release, and actuation latency.</p><div class="tags"><span>Deep reinforcement learning</span><span>Microrobotics</span></div></article>
 <article class="card"><div class="symbol">≈</div><h3>Acoustofluidic micronozzles</h3><p>Simulation-guided design and experimental validation of silicon–glass acoustofluidic nozzles for size-selective retention and separation.</p><div class="tags"><span>Microfabrication</span><span>Acoustofluidics</span></div></article>
@@ -427,17 +421,25 @@ html:not(.dark) .hero-portrait{background:radial-gradient(ellipse 55% 69% at 57%
 })();
 </script><script>
 (function(){
- const frame=document.getElementById('portrait-frame'),replay=document.getElementById('replay-portrait');
- if(!frame||!replay)return;
+ const frame=document.getElementById('portrait-frame');
+ if(!frame)return;
  const art=frame.querySelector('.portrait-sketch');
  if(!art)return;
  const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
  function finish(){frame.classList.add('is-complete');frame.classList.remove('is-drawing')}
- function draw(){if(motion.matches){finish();return}frame.classList.remove('is-complete','is-drawing');void frame.offsetWidth;frame.classList.add('is-drawing')}
- replay.addEventListener('click',draw);
+ function draw(){
+   if(motion.matches){finish();return}
+   frame.classList.remove('is-complete','is-drawing');
+   void frame.offsetWidth;
+   frame.classList.add('is-drawing');
+ }
  art.addEventListener('animationend',function(e){if(e.animationName==='portraitFinalArtwork')finish()});
  const ready=art.decode?art.decode().catch(()=>null):Promise.resolve();
- ready.then(function(){if(!art.naturalWidth){document.documentElement.classList.remove('portrait-js');replay.hidden=true;return}if(motion.matches){replay.hidden=true;finish()}else draw()});
- if(motion.addEventListener)motion.addEventListener('change',function(e){replay.hidden=e.matches;finish()});
+ ready.then(function(){
+   if(!art.naturalWidth){document.documentElement.classList.remove('portrait-js');return}
+   if(motion.matches)finish();
+   else draw();
+ });
+ if(motion.addEventListener)motion.addEventListener('change',function(e){if(e.matches)finish()});
 })();
 </script></body></html>
