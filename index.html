@@ -89,6 +89,59 @@ header nav.wrap .arabic-brand:focus-visible{outline:2px solid var(--accent);outl
  header nav.wrap .arabic-brand{font-size:clamp(13px,3.4vw,17px);align-items:flex-start;max-width:100%;line-height:1.5}
 }
 @media(max-width:355px){header nav.wrap .arabic-brand{font-size:12px}}
+
+/* Small scientific SVG illustrations: all motion is decorative, restrained, and CSS-only. */
+.cards.research-cards{grid-template-columns:repeat(6,minmax(0,1fr));gap:16px}
+.research-card{grid-column:span 2;min-width:0;display:flex;flex-direction:column;padding:25px 23px 23px}
+.research-card:nth-child(4){grid-column:2/span 2}
+.research-card:nth-child(5){grid-column:4/span 2}
+.research-card .research-icon{width:64px;height:64px;border-radius:14px;display:grid;place-items:center;background:var(--soft);color:var(--accent);flex:none}
+.research-icon svg{width:49px;height:49px;overflow:visible}
+.research-card h3{font-size:1.08rem;line-height:1.34;margin:17px 0 9px}
+.research-card p{line-height:1.64;flex:1}
+.research-card .tags{margin-top:17px}
+.research-card .tags span{font-size:.7rem}
+.research-icon .icon-faint{opacity:.47}
+.research-icon .icon-guide{opacity:.28;stroke-dasharray:3 4}
+.micro-helix{transform-box:fill-box;transform-origin:center;animation:microPropel 3.5s ease-in-out infinite}
+.micro-target{animation:scienceGlow 3.5s ease-in-out infinite}
+.acoustic-wave.wave-a{animation:waveResonate 3.2s ease-in-out infinite}
+.acoustic-wave.wave-b{animation:waveResonate 3.2s ease-in-out -1.6s infinite}
+.acoustic-bead{transform-box:fill-box;transform-origin:center}
+.bead-up{animation:particleFocusUp 3.4s ease-in-out infinite}
+.bead-down{animation:particleFocusDown 3.4s ease-in-out infinite}
+.foam-body{transform-box:fill-box;transform-origin:center bottom;animation:foamExpand 4.2s ease-in-out infinite}
+.foam-down{animation:scienceGlow 4.2s ease-in-out infinite}
+.sort-gate{transform-box:view-box;transform-origin:29px 32px;animation:gateSwitch 3.9s ease-in-out infinite}
+.sort-cell{animation:cellRoute 3.9s ease-in-out infinite}
+.sort-scan{animation:scienceGlow 3.9s ease-in-out infinite}
+.wbc-nucleus{transform-box:fill-box;transform-origin:center;animation:nucleusPulse 3.6s ease-in-out infinite}
+.wbc-node{transform-box:fill-box;transform-origin:center;animation:nodePulse 3.6s ease-in-out infinite}
+.wbc-node.n2{animation-delay:.5s}.wbc-node.n3{animation-delay:1s}
+.wbc-detect{animation:scienceGlow 3.6s ease-in-out infinite}
+@keyframes microPropel{0%,100%{transform:translateX(-3px) rotateY(0deg)}50%{transform:translateX(3px) rotateY(180deg)}}
+@keyframes scienceGlow{0%,100%{opacity:.38}50%{opacity:1}}
+@keyframes waveResonate{0%,100%{transform:translateY(-1px) scaleY(.74);opacity:.5}50%{transform:translateY(1px) scaleY(1.12);opacity:1}}
+@keyframes particleFocusUp{0%,100%{transform:translateY(-1px)}50%{transform:translateY(7px)}}
+@keyframes particleFocusDown{0%,100%{transform:translateY(1px)}50%{transform:translateY(-9px)}}
+@keyframes foamExpand{0%,100%{transform:scale(.91,.82)}50%{transform:scale(1.06,1.08)}}
+@keyframes gateSwitch{0%,35%,100%{transform:rotate(0deg)}50%,85%{transform:rotate(-30deg)}}
+@keyframes cellRoute{0%,100%{transform:translate(0,0);opacity:.8}50%{transform:translate(16px,-6px);opacity:1}}
+@keyframes nucleusPulse{0%,100%{transform:scale(.96)}50%{transform:scale(1.055)}}
+@keyframes nodePulse{0%,100%{opacity:.4;transform:scale(.85)}45%{opacity:1;transform:scale(1.15)}}
+@media(min-width:761px) and (max-width:1100px){
+.cards.research-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+.research-card,.research-card:nth-child(4),.research-card:nth-child(5){grid-column:auto}
+.research-card:last-child{grid-column:1/-1;width:calc((100% - 16px)/2);justify-self:center}
+}
+@media(max-width:760px){
+.cards.research-cards{grid-template-columns:minmax(0,1fr)}
+.research-card,.research-card:nth-child(4),.research-card:nth-child(5),.research-card:last-child{grid-column:auto;max-width:none;width:100%}
+.research-card{padding:23px}
+}
+@media(prefers-reduced-motion:reduce){
+.research-icon *{animation:none!important;transition:none!important}
+}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <header><nav class="wrap"><a class="arabic-brand" href="#top" lang="ar" dir="rtl" aria-label="حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ، نِعْمَ الْمَوْلَى وَنِعْمَ النَّصِيرُ" title="حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ، نِعْمَ الْمَوْلَى وَنِعْمَ النَّصِيرُ"><span class="arabic-brand-line"><span class="arabic-measure" aria-hidden="true">حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ،</span><span class="arabic-ink" aria-hidden="true" data-arabic-text="حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ،">حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ،</span></span><span class="arabic-brand-line"><span class="arabic-measure" aria-hidden="true">نِعْمَ الْمَوْلَى وَنِعْمَ النَّصِيرُ</span><span class="arabic-ink" aria-hidden="true" data-arabic-text="نِعْمَ الْمَوْلَى وَنِعْمَ النَّصِيرُ">نِعْمَ الْمَوْلَى وَنِعْمَ النَّصِيرُ</span></span></a><div class="links"><a href="#research">Research</a><a href="#publications">Publications</a><a href="#news">News</a><a href="#background">Background</a><a href="#contact">Contact</a><button type="button" id="theme" aria-label="Toggle theme">◐ Theme</button></div></nav></header>
@@ -414,11 +467,39 @@ header nav.wrap .arabic-brand:focus-visible{outline:2px solid var(--accent);outl
 <path class="draw-stroke draw-detail" pathLength="100" d="M 468 522 L 451 533 L 443 542 L 441 539 L 436 547 L 441 540 L 442 544 L 448 536 L 469 522" style="--delay:5.24s;--duration:0.79s"/>
 <path class="draw-stroke draw-detail" pathLength="100" d="M 352 518 L 348 530 L 351 523 L 352 528 L 354 525 L 356 527 L 350 539 L 353 533 L 355 540 L 356 527 L 352 525 L 352 521" style="--delay:5.25s;--duration:0.91s"/>
 <path class="draw-stroke draw-detail" pathLength="100" d="M 473 396 L 467 402 L 461 398 L 455 406 L 461 398 L 464 401 L 459 405 L 463 402 L 466 404 L 458 409 L 468 401 L 470 402 L 472 397" style="--delay:4.54s;--duration:1.03s"/></svg></div></figure></div></div>
-<section id="research"><div class="wrap"><div class="section-top"><div><div class="eyebrow">01 / Research</div><h2>Selected research areas</h2></div><p>Computational and experimental platforms for advanced biomedical applications.</p></div><div class="cards">
-<article class="card"><div class="symbol">⌁</div><h3>Magnetic microrobotics & deep RL</h3><p>PPO-based control of chiral magnetic micropropellers transporting cargo through confined channels, addressing mode switching, capture and release, and actuation latency.</p><div class="tags"><span>Deep reinforcement learning</span><span>Microrobotics</span></div></article>
-<article class="card"><div class="symbol">≈</div><h3>Acoustofluidic micronozzles</h3><p>Simulation-guided design and experimental validation of silicon–glass acoustofluidic nozzles for size-selective retention and separation.</p><div class="tags"><span>Microfabrication</span><span>Acoustofluidics</span></div></article>
-<article class="card"><div class="symbol">✳</div><h3>Hemostatic biomaterials</h3><p>Preclinical bench validation, commercialization, and regulatory planning for an absorbable chitosan–starch hemostatic foam.</p><div class="tags"><span>Biomaterials</span><span>Medtech translation</span></div></article>
-<article class="card"><div class="symbol">⊞</div><h3>Computer vision & diagnostics</h3><p>Image-activated microfluidic cell sorting, magnetically gated routing, and machine-learning-enabled biomedical sensing.</p><div class="tags"><span>Computer vision</span><span>Microfluidics</span></div></article>
+<section id="research"><div class="wrap"><div class="section-top"><div><div class="eyebrow">01 / Research</div><h2>Selected research areas</h2></div><p>Computational and experimental platforms for advanced biomedical applications.</p></div><div class="cards research-cards">
+<article class="card research-card" data-research="micro"><div class="symbol research-icon" aria-hidden="true"><svg viewBox="0 0 64 64" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M7 17H57M7 47H57" class="icon-faint"/>
+<path d="M9 32H55" class="icon-guide"/>
+<g class="micro-helix">
+ <path d="M19 32c3-10 8-10 11 0s8 10 11 0 8-10 11 0" stroke-width="2.7"/>
+ <path d="M19 32c3 10 8 10 11 0s8-10 11 0 8 10 11 0" class="icon-faint"/>
+ <path d="M15 32H56" stroke-width="1.2"/>
+ <circle cx="15" cy="32" r="3.1" fill="var(--soft)"/>
+</g><circle class="micro-target" cx="56" cy="32" r="4" stroke-dasharray="2 3"/></svg></div><h3>Magnetic microrobotics & deep RL</h3><p>PPO-based control of chiral magnetic micropropellers transporting cargo through confined channels, addressing mode switching, capture and release, and actuation latency.</p><div class="tags"><span>Deep reinforcement learning</span><span>Microrobotics</span></div></article>
+<article class="card research-card" data-research="acoustic"><div class="symbol research-icon" aria-hidden="true"><svg viewBox="0 0 64 64" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M7 14V50M57 14V50M7 14H57M7 50H57" class="icon-faint"/>
+<path class="acoustic-wave wave-a" d="M9 30c4-13 8-13 12 0s8 13 12 0 8-13 12 0 8 13 12 0" stroke-width="2.5"/>
+<path class="acoustic-wave wave-b" d="M9 36c4-13 8-13 12 0s8 13 12 0 8-13 12 0 8 13 12 0" stroke-width="1.4"/>
+<circle class="acoustic-bead bead-up" cx="19" cy="21" r="3" fill="currentColor"/>
+<circle class="acoustic-bead bead-down" cx="45" cy="43" r="4" fill="currentColor" opacity=".8"/>
+<path d="M8 33H56" class="icon-guide"/></svg></div><h3>Acoustofluidic micronozzles</h3><p>Simulation-guided design and experimental validation of silicon–glass acoustofluidic nozzles for size-selective retention and separation.</p><div class="tags"><span>Microfabrication</span><span>Acoustofluidics</span></div></article>
+<article class="card research-card" data-research="foam"><div class="symbol research-icon" aria-hidden="true"><svg viewBox="0 0 64 64" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8 21V44c0 6 5 9 11 9h26c6 0 11-3 11-9V21" stroke-width="2"/>
+<path d="M13 22c5 3 9-3 14 0s9-3 14 0 8-3 12 0" class="icon-faint"/>
+<g class="foam-body"><path d="M13 42V33c0-4 4-5 7-5h24c4 0 7 1 7 5v9c0 4-4 6-8 6H21c-4 0-8-2-8-6Z" fill="var(--accent)" fill-opacity=".14"/>
+<circle cx="22" cy="37" r="2.5"/><circle cx="34" cy="34" r="3.4"/><circle cx="44" cy="39" r="2.7"/><circle cx="31" cy="44" r="2"/><circle cx="18" cy="43" r="1.2" fill="currentColor" stroke="none"/></g>
+<path d="M27 19V11m0 0-4 4m4-4 4 4" class="foam-down"/></svg></div><h3>Hemostatic biomaterials</h3><p>Preclinical bench validation, commercialization, and regulatory planning for an absorbable chitosan–starch hemostatic foam.</p><div class="tags"><span>Biomaterials</span><span>Medtech translation</span></div></article>
+<article class="card research-card" data-research="sort"><div class="symbol research-icon" aria-hidden="true"><svg viewBox="0 0 64 64" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8 32H29L50 12H57M29 32L50 52H57" stroke-width="2.3"/>
+<path d="M8 26H28M8 38H28" class="icon-faint"/>
+<g class="sort-gate"><path d="M29 32L42 22" stroke-width="3.2"/><circle cx="29" cy="32" r="3.2" fill="var(--soft)"/></g>
+<circle class="sort-cell" cx="15" cy="32" r="5" fill="var(--accent)" fill-opacity=".2"/>
+<rect class="sort-scan" x="8" y="24" width="14" height="16" rx="2" stroke-dasharray="2 2"/>
+<path d="M46 12h8M46 52h8" class="icon-faint"/></svg></div><h3>Computer vision & diagnostics</h3><p>Image-activated microfluidic cell sorting, magnetically gated routing, and machine-learning-enabled biomedical sensing.</p><div class="tags"><span>Computer vision</span><span>Microfluidics</span></div></article>
+<article class="card research-card" data-research="wbc"><div class="symbol research-icon" aria-hidden="true"><svg viewBox="0 0 64 64" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="24" cy="32" r="16" stroke-width="2.4" fill="var(--accent)" fill-opacity=".07"/>
+<path class="wbc-nucleus" d="M17 29c-3-8 5-12 9-7 5-4 12 4 7 9 5 7-2 12-8 9-8 7-14-2-8-11Z" fill="var(--accent)" fill-opacity=".27" stroke-width="1.6"/>
+<circle cx="39" cy="15" r="3" class="wbc-node n1" fill="var(--soft)"/>
+<circle cx="53" cy="27" r="3" class="wbc-node n2" fill="var(--soft)"/>
+<circle cx="48" cy="46" r="3" class="wbc-node n3" fill="var(--soft)"/>
+<path d="M36 22l3-7m-2 18 16-6m-15 6 10 13M39 15l14 12-5 19" class="icon-faint"/>
+<path d="M8 16v-5h5M8 48v5h5M56 16v-5h-5M56 48v5h-5" class="wbc-detect"/></svg></div><h3>WBC transfer learning & biomedical AI</h3><p>Exploring data-efficient transfer learning and synthetic image augmentation for fine-grained white blood cell classification from limited labeled blood-smear datasets.</p><div class="tags"><span>Biomedical AI</span><span>Transfer learning</span><span>In development</span></div></article>
 </div></div></section>
 <section id="publications"><div class="wrap"><div class="eyebrow">02 / Scholarship</div><div class="section-top"><div><h2>Selected publications &amp; presentations</h2></div><p>Peer-reviewed articles and selected conference contributions, organized by publication year (newest first).</p></div><h3 class="pub-group">Peer-reviewed journal articles</h3><article class="pub"><b>2026</b><div><h4><a href="https://doi.org/10.1016/j.isci.2026.117777">Earth-observation variables identify temperature-centered protein-family covariation across macroalgal genomes ↗</a></h4><p>Alexandra Mystikou, David R. Nelson, Diana C. El Assal, Ashish K. Jaiswal, Mehar Sultana, Cecilia Rad-Menendez, Noura Al-Mansoori, Sewar T. Elias, <strong>Ma-sum Abdul-Hamid</strong>, et al.</p><p><em>iScience</em>, 29(11), 117777 · Published online October 7, 2026</p><p><a class="extra-link" href="https://www.cell.com/iscience/fulltext/S2589-0042(26)03158-5">Publisher article ↗</a></p></div></article>
 <article class="pub"><b>2025</b><div><h4><a href="https://doi.org/10.1109/ACCESS.2025.3550948">Off-the-Jaw Tactile Sensing System for Tissue Stiffness and Thickness Assessment in Minimally Invasive Surgery ↗</a></h4><p>Wael Othman, Kojo E. Vandyck, <strong>Ma-sum Abdul-Hamid</strong>, Carlos Abril, Juan S. Barajas-Gamboa, Juan P. Pantoja, Mohammad A. Qasaimeh</p><p><em>IEEE Access</em>, 13, 49320–49333</p></div></article>
