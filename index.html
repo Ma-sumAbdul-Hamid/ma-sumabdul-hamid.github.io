@@ -20,12 +20,49 @@ html.dark{--bg:#101b1d;--paper:#182729;--ink:#e9f5f1;--mute:#b3c3bf;--accent:#83
 .news-page-indicator{font-size:.76rem!important;color:var(--mute);margin:8px 0 0!important}
 .news-navigation + .year-block{margin-top:0}
 @media(max-width:760px){.news-nav-top{flex-direction:column;align-items:stretch;gap:10px}.news-nav-caption span{display:block}.news-nav-buttons{justify-content:space-between}.news-year-options{flex:1;justify-content:center}.news-year-choice{flex:1;min-width:0}}
+
+/* Animated researcher's portrait */
+.hero-portrait{width:100%;min-width:0;display:flex;align-items:center;justify-content:center}
+.portrait-figure{margin:0;width:min(100%,430px)}
+.portrait-frame{position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;border-radius:20px;isolation:isolate;background:#1c1c1d;border:1px solid var(--border);box-shadow:0 20px 65px rgba(0,0,0,.23)}
+.portrait-frame::after{content:"";position:absolute;inset:0;z-index:4;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06);pointer-events:none}
+.portrait-layer{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.portrait-photo{z-index:1;opacity:1}
+.portrait-sketch{z-index:2;opacity:0;pointer-events:none}
+.portrait-pencil-trace{z-index:3;position:absolute;inset:0;opacity:0;pointer-events:none;background:linear-gradient(100deg,transparent 45%,rgba(255,250,223,.16) 51%,transparent 60%);mix-blend-mode:screen;transform:translateX(-125%)}
+.portrait-frame.is-playing .portrait-photo{animation:portraitPhotoReveal 1.06s cubic-bezier(.22,1,.36,1) 2.15s both}
+.portrait-frame.is-playing .portrait-sketch{opacity:1;clip-path:inset(0 100% 0 0);animation:portraitDraw 1.75s cubic-bezier(.2,.7,.24,1) .18s both,portraitSketchFade .88s ease-in-out 2.12s forwards}
+.portrait-frame.is-playing .portrait-pencil-trace{animation:portraitPencilSweep 1.8s ease-out .18s both}
+.portrait-caption{margin-top:13px;display:flex;justify-content:space-between;align-items:center;gap:9px;color:var(--mute);font-size:.76rem;font-weight:650;letter-spacing:.01em}
+.portrait-caption-sub{font-weight:450}
+.portrait-replay{background:transparent;color:var(--accent);font-weight:700;border:1px solid var(--border);font-size:.76rem;white-space:nowrap;min-height:34px;padding:5px 11px}
+.portrait-replay:hover{background:var(--soft)}
+.portrait-replay:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.portrait-replay[hidden]{display:none}
+@keyframes portraitDraw{0%{clip-path:inset(0 100% 0 0)}100%{clip-path:inset(0 0 0 0)}}
+@keyframes portraitSketchFade{0%{opacity:1}100%{opacity:0}}
+@keyframes portraitPhotoReveal{0%{opacity:0;transform:scale(1.035);filter:blur(6px) saturate(.7)}100%{opacity:1;transform:scale(1);filter:blur(0) saturate(1)}}
+@keyframes portraitPencilSweep{0%{opacity:0;transform:translateX(-125%)}30%{opacity:.85}90%{opacity:.7}100%{opacity:0;transform:translateX(125%)}}
+@media(max-width:760px){.hero-portrait{justify-content:center}.portrait-figure{width:min(100%,365px)}.portrait-frame{border-radius:17px}}
+@media(prefers-reduced-motion:reduce){.portrait-frame.is-playing .portrait-sketch,.portrait-frame.is-playing .portrait-photo,.portrait-frame.is-playing .portrait-pencil-trace{animation:none!important}.portrait-frame .portrait-sketch,.portrait-frame .portrait-pencil-trace{opacity:0!important}.portrait-frame .portrait-photo{opacity:1!important;transform:none!important;filter:none!important}}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <header><nav class="wrap"><a class="brand" href="#top"><b>m.a</b> Ma-sum Abdul-Hamid</a><div class="links"><a href="#research">Research</a><a href="#publications">Publications</a><a href="#news">News</a><a href="#background">Background</a><a href="#contact">Contact</a><button type="button" id="theme" aria-label="Toggle theme">◐ Theme</button></div></nav></header>
 <main id="main">
 <div class="hero wrap" id="top"><div><div class="eyebrow">Biomedical Engineering · Penn State</div><h1>Ma-sum <span>Abdul-Hamid.</span></h1><p class="lead">Research at the intersection of intelligent microdevices, biomaterials, and translational medicine.</p><p class="muted">I am a Ph.D. candidate in Biomedical Engineering at <a href="https://www.psu.edu/">Penn State</a>, working in the Active Biomaterials Laboratory with Prof. Igor S. Aronson. My research spans deep reinforcement learning for magnetic microrobots, acoustofluidic devices, and AI-enabled microfluidic diagnostics.</p><p class="muted">Beyond the lab, I help lead the commercialization and preclinical validation of a bioresorbable hemostatic foam for trauma and surgical care.</p><div class="actions"><a class="btn primary" href="mailto:mma7015@psu.edu">Contact me ↗</a><a class="btn secondary" href="Ma-sum_Abdul-Hamid_CV_Public.pdf" target="_blank" rel="noopener noreferrer">View / Download CV ↗</a></div><div class="social"><a href="https://github.com/Ma-sumAbdul-Hamid">GitHub ↗</a><a href="https://www.linkedin.com/in/ma-sum-abdul-hamid-30a5451a9">LinkedIn ↗</a><a href="https://orcid.org/0009-0002-0323-3355">ORCID ↗</a></div></div>
-<div class="illustration"><svg viewBox="0 0 350 230" role="img" aria-label="Illustrative microfluidic channel"><defs><linearGradient id="g"><stop stop-color="#7acebf"/><stop offset="1" stop-color="#287e8a"/></linearGradient></defs><path d="M0 42H70C118 42 126 95 169 95H215C260 95 269 42 310 42H350 M0 188H70C118 188 126 135 169 135H215C260 135 269 188 310 188H350" fill="none" stroke="url(#g)" stroke-width="3"/><path d="M0 85H70C115 85 125 107 169 107H215C258 107 269 84 310 84H350 M0 145H70C115 145 125 123 169 123H215C258 123 269 146 310 146H350" fill="none" stroke="#83a9a2" stroke-width="1.5" opacity=".6"/><circle cx="171" cy="115" r="20" fill="#8ccbc0" stroke="#267b75" stroke-width="3"/><circle cx="171" cy="115" r="6" fill="#267b75"/><circle cx="89" cy="44" r="8" fill="#d7ab69"/><circle cx="258" cy="186" r="7" fill="#83a9be"/></svg><div class="aside-label">Simulation · Fabrication · Translation</div></div></div>
+<div class="hero-portrait">
+  <figure class="portrait-figure">
+    <div class="portrait-frame" id="portrait-frame">
+      <img class="portrait-layer portrait-photo" src="assets/portrait-photo.webp" width="800" height="1000" alt="Ma-sum Abdul-Hamid wearing a suit" fetchpriority="high" decoding="async">
+      <img class="portrait-layer portrait-sketch" src="assets/portrait-sketch.webp" width="800" height="1000" alt="" aria-hidden="true" decoding="async">
+      <span class="portrait-pencil-trace" aria-hidden="true"></span>
+    </div>
+    <figcaption class="portrait-caption">
+      <span>Ma-sum Abdul-Hamid <span class="portrait-caption-sub">· Penn State</span></span>
+      <button id="replay-portrait" class="portrait-replay" type="button" aria-label="Replay portrait sketch animation">↺ Replay sketch</button>
+    </figcaption>
+  </figure>
+</div></div>
 <section id="research"><div class="wrap"><div class="section-top"><div><div class="eyebrow">01 / Research</div><h2>Selected research areas</h2></div><p>Computational and experimental platforms for advanced biomedical applications.</p></div><div class="cards">
 <article class="card"><div class="symbol">⌁</div><h3>Magnetic microrobotics & deep RL</h3><p>PPO-based control of chiral magnetic micropropellers transporting cargo through confined channels, addressing mode switching, capture and release, and actuation latency.</p><div class="tags"><span>Deep reinforcement learning</span><span>Microrobotics</span></div></article>
 <article class="card"><div class="symbol">≈</div><h3>Acoustofluidic micronozzles</h3><p>Simulation-guided design and experimental validation of silicon–glass acoustofluidic nozzles for size-selective retention and separation.</p><div class="tags"><span>Microfabrication</span><span>Acoustofluidics</span></div></article>
@@ -72,5 +109,37 @@ html.dark{--bg:#101b1d;--paper:#182729;--ink:#e9f5f1;--mute:#b3c3bf;--accent:#83
  section.addEventListener("touchstart",e=>{if(e.touches.length!==1)return;x=e.touches[0].clientX;y=e.touches[0].clientY},{passive:true});
  section.addEventListener("touchend",e=>{if(x===null||!e.changedTouches.length)return;const dx=e.changedTouches[0].clientX-x,dy=e.changedTouches[0].clientY-y;x=y=null;if(Math.abs(dx)>65&&Math.abs(dx)>1.5*Math.abs(dy))select(active+(dx<0?1:-1))},{passive:true});
  bar.hidden=false;select(0);
+})();
+</script><script>
+(function(){
+  const frame=document.getElementById('portrait-frame');
+  const replay=document.getElementById('replay-portrait');
+  if(!frame||!replay)return;
+  const photo=frame.querySelector('.portrait-photo');
+  const sketch=frame.querySelector('.portrait-sketch');
+  const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
+  if(motion.matches){replay.hidden=true;return;}
+  function animate(){
+    if(!photo.naturalWidth||!sketch.naturalWidth)return;
+    frame.classList.remove('is-playing');
+    void frame.offsetWidth;
+    frame.classList.add('is-playing');
+  }
+  replay.addEventListener('click',animate);
+  photo.addEventListener('animationend',function(e){
+    if(e.animationName==='portraitPhotoReveal'){
+      frame.classList.remove('is-playing');
+    }
+  });
+  Promise.all([photo.decode().catch(()=>null),sketch.decode().catch(()=>null)]).then(function(){
+    if(photo.naturalWidth&&sketch.naturalWidth)animate();
+    else replay.hidden=true;
+  });
+  if(motion.addEventListener){
+    motion.addEventListener('change',function(e){
+      replay.hidden=e.matches;
+      if(e.matches)frame.classList.remove('is-playing');
+    });
+  }
 })();
 </script></body></html>
