@@ -1,5 +1,5 @@
 /* Research project pages — editorial visual system, dark mode by default. */
-:root{--bg:#C0C0C0;--paper:#D3D3D3;--ink:#1A2A38;--mute:#34495A;--accent:#164F68;--border:#A0A0A0;--soft:#C9C9C9;--silver:#3D4F5C;--silver-wash:#B8B8B8;--silver-border:#979797;--on-accent:#FFFFFF;--portrait-stroke:#657789;--accentwash:rgba(22,79,104,.10);color-scheme:light;font-family:Inter,"Segoe UI",system-ui,-apple-system,sans-serif}
+:root{--bg:#C0C0C0;--paper:#D3D3D3;--ink:#2F2C2D;--mute:#4C4547;--accent:#694735;--border:#A59E9E;--soft:#CAC4C4;--silver:#50494A;--silver-wash:#B8B1B1;--silver-border:#969090;--on-accent:#FFFFFF;--portrait-stroke:#665B5D;--accentwash:rgba(22,79,104,.10);color-scheme:light;font-family:Inter,"Segoe UI",system-ui,-apple-system,sans-serif}
 html.dark{--bg:#101923;--paper:#253747;--ink:#F3F6F7;--mute:#BBC9D4;--accent:#78BED1;--border:#415668;--soft:#2C4558;--silver:#A9B7C6;--silver-wash:#2D3B4D;--silver-border:#8295A8;--on-accent:#101923;--portrait-stroke:#A9B7C6;color-scheme:dark}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);line-height:1.62}
 a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
@@ -55,6 +55,9 @@ footer{border-top:1px solid var(--border);padding:26px 0 34px;color:var(--mute);
 @media(max-width:560px){.container{width:min(100% - 36px,1130px)}.header-row{align-items:flex-start;flex-direction:column;gap:9px;padding:15px 0}.arabic-brand{font-size:15px}.header-actions{gap:14px}.project-breadcrumb{padding-top:22px}.project-hero{padding:37px 0 44px}.project-headline h1{font-size:clamp(2.4rem,11vw,3.4rem)}.project-visual{min-height:235px}.visual-icon{transform:scale(1.75)}.page-grid{padding:39px 0 49px}.materials-grid{grid-template-columns:1fr}.material-tile{min-height:auto}.project-switcher{font-size:.84rem}.project-switcher a{max-width:48%}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
+
+/* Warm walnut tint in light mode only; dark theme retains its original blue glow. */
+html:not(.dark){--accentwash:rgba(105,71,53,.10)}
 
 /* Harmonized color treatment with the main academic homepage. */
 ::selection{background:var(--silver-wash);color:var(--ink)}
