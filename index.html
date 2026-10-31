@@ -859,6 +859,27 @@ html:not(.dark) .portrait-frame:not(.is-drawing):not(.is-complete) .portrait-pup
    startX=null;startY=null;
    if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)show(selected+(dx<0?1:-1));
  },{passive:true});
+ track.addEventListener('touchcancel',()=>{startX=null;startY=null},{passive:true});
+ // Two-finger trackpad swipes arrive as horizontal wheel events, not touch events.
+ // Ignore predominantly vertical gestures so the page remains easy to scroll.
+ let wheelDistance=0,lastWheelTime=0,lastWheelStep=-Infinity;
+ track.addEventListener('wheel',e=>{
+   if(e.ctrlKey||e.metaKey)return; // Do not hijack pinch-to-zoom.
+   let dx=e.deltaX,dy=e.deltaY;
+   if(e.shiftKey&&Math.abs(dx)<1){dx=dy;dy=0}
+   if(Math.abs(dx)<1||Math.abs(dx)<=Math.abs(dy)*1.1)return;
+   e.preventDefault(); // Prevent browser history / sideways page scrolling.
+   const scale=e.deltaMode===1?16:e.deltaMode===2?track.clientWidth:1;
+   const distance=dx*scale,now=performance.now();
+   if(now-lastWheelTime>250||(wheelDistance!==0&&Math.sign(distance)!==Math.sign(wheelDistance)))wheelDistance=0;
+   lastWheelTime=now;
+   wheelDistance+=distance;
+   if(Math.abs(wheelDistance)>=65&&now-lastWheelStep>=240){
+     show(selected+(wheelDistance>0?1:-1)); // show() wraps at either end.
+     wheelDistance=0;
+     lastWheelStep=now;
+   }
+ },{passive:false});
  root.classList.add('is-coverflow');
  show(0);
 })();
