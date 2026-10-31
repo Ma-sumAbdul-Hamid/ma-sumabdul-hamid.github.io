@@ -860,24 +860,29 @@ html:not(.dark) .portrait-frame:not(.is-drawing):not(.is-complete) .portrait-pup
    if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)show(selected+(dx<0?1:-1));
  },{passive:true});
  track.addEventListener('touchcancel',()=>{startX=null;startY=null},{passive:true});
- // Two-finger trackpad swipes arrive as horizontal wheel events, not touch events.
- // Ignore predominantly vertical gestures so the page remains easy to scroll.
- let wheelDistance=0,lastWheelTime=0,lastWheelStep=-Infinity;
+ // Trackpads emit many wheel events (including momentum) for a single swipe.
+ // Treat the entire horizontal burst as ONE gesture so one swipe moves one card.
+ let wheelDistance=0,lastWheelTime=0,wheelGestureHandled=false;
+ const wheelGestureIdleMs=420;
  track.addEventListener('wheel',e=>{
-   if(e.ctrlKey||e.metaKey)return; // Do not hijack pinch-to-zoom.
+   if(e.ctrlKey||e.metaKey)return; // Preserve pinch-to-zoom.
    let dx=e.deltaX,dy=e.deltaY;
    if(e.shiftKey&&Math.abs(dx)<1){dx=dy;dy=0}
-   if(Math.abs(dx)<1||Math.abs(dx)<=Math.abs(dy)*1.1)return;
-   e.preventDefault(); // Prevent browser history / sideways page scrolling.
+   if(Math.abs(dx)<1||Math.abs(dx)<=Math.abs(dy)*1.1)return; // Preserve vertical scrolling.
+   e.preventDefault(); // Avoid browser back/forward or horizontal page scrolling.
    const scale=e.deltaMode===1?16:e.deltaMode===2?track.clientWidth:1;
    const distance=dx*scale,now=performance.now();
-   if(now-lastWheelTime>250||(wheelDistance!==0&&Math.sign(distance)!==Math.sign(wheelDistance)))wheelDistance=0;
-   lastWheelTime=now;
-   wheelDistance+=distance;
-   if(Math.abs(wheelDistance)>=65&&now-lastWheelStep>=240){
-     show(selected+(wheelDistance>0?1:-1)); // show() wraps at either end.
+   if(now-lastWheelTime>wheelGestureIdleMs){
      wheelDistance=0;
-     lastWheelStep=now;
+     wheelGestureHandled=false;
+   }
+   lastWheelTime=now;
+   if(wheelGestureHandled)return; // Consume momentum; don't advance twice on one swipe.
+   if(wheelDistance&&Math.sign(distance)!==Math.sign(wheelDistance))wheelDistance=0;
+   wheelDistance+=distance;
+   if(Math.abs(wheelDistance)>=65){
+     show(selected+(wheelDistance>0?1:-1)); // Retain endless wraparound.
+     wheelGestureHandled=true;
    }
  },{passive:false});
  root.classList.add('is-coverflow');
