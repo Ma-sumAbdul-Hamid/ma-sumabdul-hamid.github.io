@@ -298,6 +298,17 @@ header nav.wrap .arabic-brand:hover{color:var(--accent)}
 .coverflow.is-coverflow .coverflow-position{color:var(--silver)}
 .coverflow.is-coverflow .research-card .research-icon{border:1px solid var(--border)}
 @media(prefers-reduced-motion:reduce){body,header,.card,.news-entry,.news-navigation,.item,.btn,.footer-panel{transition:none!important}}
+
+/* Light-theme-only repair of transparent pinholes in the pencil portrait.
+   Dark mode retains the original image and its original drawing sequence. */
+.portrait-light-repair{z-index:1;object-fit:contain;object-position:center;display:none;pointer-events:none;opacity:0}
+html:not(.dark) .portrait-frame.has-light-repair .portrait-sketch{visibility:hidden}
+html:not(.dark) .portrait-frame.has-light-repair .portrait-light-repair{display:block}
+html:not(.dark) .portrait-frame.has-light-repair.is-complete .portrait-light-repair{opacity:1}
+html:not(.dark) .portrait-frame.has-light-repair.is-drawing .portrait-light-repair{animation:portraitFinalArtwork 1.65s ease-out 4.75s both}
+@media(prefers-reduced-motion:reduce){
+ html:not(.dark) .portrait-frame.has-light-repair .portrait-light-repair{opacity:1!important;animation:none!important}
+}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <header><nav class="wrap site-nav" aria-label="Main navigation"><a class="arabic-brand" href="#top" lang="ar" dir="rtl" aria-label="حَسْبُنَا اللَّهُ وَنِعْمَالنَّصِيرُ" title="حَسْبُنَا اللَّهُ وَنِعْمَالنَّصِيرُ"><span class="arabic-brand-line"><span class="arabic-measure" aria-hidden="true">حَسْبُنَا اللَّهُ وَنِعْمَالنَّصِيرُ</span><span class="arabic-ink" aria-hidden="true" data-arabic-text="حَسْبُنَا اللَّهُ وَنِعْمَالنَّصِيرُ">حَسْبُنَا اللَّهُ وَنِعْمَالنَّصِيرُ</span></span></a><button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-expanded="false" aria-controls="primary-links" aria-label="Open navigation" type="button"><span class="menu-bars" aria-hidden="true"><span></span><span></span><span></span></span><span class="menu-word">Menu</span></button><div class="links" id="primary-links"><a href="#research">Research</a><a href="#publications">Publications</a><a href="#news">News</a><a href="#background">Background</a><a href="#contact">Contact</a><button type="button" id="theme" aria-label="Toggle theme">◐ Theme</button></div></nav></header>
@@ -860,4 +871,96 @@ header nav.wrap .arabic-brand:hover{color:var(--accent)}
  document.addEventListener('click',e=>{if(!nav.contains(e.target))close()});
 })();
 </script>
-</body></html>
+
+<script>
+/* Keep the dark portrait untouched. Build a light-only derivative at runtime
+   by filling transparency pinholes in the dense hair, pupils and beard.
+   Uses the same-origin source image; no external image service or upload. */
+(function(){
+ const original=document.querySelector('#portrait-frame > .portrait-sketch');
+ const frame=document.getElementById('portrait-frame');
+ if(!original||!frame||!document.createElement('canvas').getContext)return;
+ function prepare(){
+  if(frame.classList.contains('has-light-repair')||!original.naturalWidth)return;
+  try{
+   const w=original.naturalWidth,h=original.naturalHeight;
+   if(w<500||h<600)return;
+   const canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+   const context=canvas.getContext('2d',{willReadFrequently:true});
+   if(!context)return;
+   context.drawImage(original,0,0,w,h);
+   const picture=context.getImageData(0,0,w,h),pixels=picture.data;
+   const left=Math.floor(w*.32),right=Math.ceil(w*.72);
+   const top=Math.floor(h*.035),bottom=Math.ceil(h*.39);
+   const stride=right-left+1,rows=bottom-top+1;
+   const length=stride*rows,radius=Math.max(3,Math.round(w/155));
+   const source=new Uint8Array(length);
+   for(let y=top;y<=bottom;y++)for(let x=left;x<=right;x++){
+    source[(y-top)*stride+(x-left)]=pixels[(y*w+x)*4+3];
+   }
+   /* Separable 5px-radius closing: fill small holes, preserve existing ink. */
+   const hMax=new Uint8Array(length),vMax=new Uint8Array(length);
+   const hMin=new Uint8Array(length),closed=new Uint8Array(length);
+   for(let y=0;y<rows;y++)for(let x=0;x<stride;x++){
+    let val=0;for(let t=Math.max(0,x-radius);t<=Math.min(stride-1,x+radius);t++)val=Math.max(val,source[y*stride+t]);
+    hMax[y*stride+x]=val;
+   }
+   for(let y=0;y<rows;y++)for(let x=0;x<stride;x++){
+    let val=0;for(let t=Math.max(0,y-radius);t<=Math.min(rows-1,y+radius);t++)val=Math.max(val,hMax[t*stride+x]);
+    vMax[y*stride+x]=val;
+   }
+   for(let y=0;y<rows;y++)for(let x=0;x<stride;x++){
+    let val=255;for(let t=Math.max(0,x-radius);t<=Math.min(stride-1,x+radius);t++)val=Math.min(val,vMax[y*stride+t]);
+    hMin[y*stride+x]=val;
+   }
+   for(let y=0;y<rows;y++)for(let x=0;x<stride;x++){
+    let val=255;for(let t=Math.max(0,y-radius);t<=Math.min(rows-1,y+radius);t++)val=Math.min(val,hMin[t*stride+x]);
+    closed[y*stride+x]=val;
+   }
+   const ellipse=(x,y,cx,cy,rx,ry)=>{
+    const d=Math.hypot((x-cx)/rx,(y-cy)/ry);
+    return Math.max(0,Math.min(1,(1-d)/.11));
+   };
+   const sx=w/773,sy=h/1100;
+   for(let y=top;y<=bottom;y++)for(let x=left;x<=right;x++){
+    const px=x/sx,py=y/sy;
+    const strength=Math.max(
+     ellipse(px,py,403,126,126,77),
+     ellipse(px,py,289,146,16,45),
+     ellipse(px,py,519,148,16,45),
+     ellipse(px,py,400,375,96,28),
+     ellipse(px,py,319,340,19,37),
+     ellipse(px,py,498,340,19,37),
+     ellipse(px,py,401,397,74,17),
+     ellipse(px,py,355,243,13,7),
+     ellipse(px,py,462,244,13,7)
+    );
+    if(strength<=0)continue;
+    const p=(y*w+x)*4, a=pixels[p+3]/255;
+    const repaired=Math.max(a,closed[(y-top)*stride+(x-left)]/255*strength);
+    if(repaired<=a+.004)continue;
+    /* Place navy graphite only behind existing pencil strokes. */
+    const backing=(repaired-a)/(1-a||1);
+    const backgroundOpacity=backing*(1-a);
+    const total=a+backgroundOpacity;
+    const dark=[26,36,45];
+    for(let c=0;c<3;c++)pixels[p+c]=Math.round((pixels[p+c]*a+dark[c]*backgroundOpacity)/total);
+    pixels[p+3]=Math.round(total*255);
+   }
+   context.putImageData(picture,0,0);
+   const light=new Image();
+   light.className='portrait-layer portrait-light-repair';
+   light.alt='';
+   light.setAttribute('aria-hidden','true');
+   light.decoding='async';
+   light.width=w;light.height=h;
+   light.onload=function(){frame.classList.add('has-light-repair')};
+   light.src=canvas.toDataURL('image/webp',.96);
+   frame.insertBefore(light,frame.querySelector('.portrait-stroke-svg'));
+   if(light.complete&&light.naturalWidth)frame.classList.add('has-light-repair');
+  }catch(err){/* Preserve the original artwork if canvas processing is unavailable. */}
+ }
+ if(original.complete&&original.naturalWidth)prepare();
+ else original.addEventListener('load',prepare,{once:true});
+})();
+</script></body></html>
