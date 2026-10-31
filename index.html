@@ -142,6 +142,64 @@ header nav.wrap .arabic-brand:focus-visible{outline:2px solid var(--accent);outl
 @media(prefers-reduced-motion:reduce){
 .research-icon *{animation:none!important;transition:none!important}
 }
+
+/* Progressive-enhancement Cover Flow: accessible grid before JavaScript initializes. */
+.coverflow{width:100%;max-width:100%;position:relative;margin:6px auto 0}
+.coverflow-track{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.coverflow .research-card{grid-column:auto;min-width:0;width:100%;display:flex;flex-direction:column;border-radius:20px;overflow:hidden;box-shadow:0 12px 28px rgba(0,0,0,.07);background:radial-gradient(circle at 87% 8%,var(--soft),transparent 46%),var(--paper)}
+.coverflow .research-card:last-child{grid-column:1/-1;width:calc((100% - 16px)/2);justify-self:center}
+.coverflow .research-card-hit{flex:1;display:flex;flex-direction:column;min-height:100%;color:var(--ink);text-decoration:none;outline-offset:-5px}
+.coverflow .research-card-hit:hover{text-decoration:none}
+.coverflow .research-card-hit:focus-visible{outline:3px solid var(--accent);border-radius:12px}
+.coverflow .research-card-hit .tags{flex:none}
+.coverflow .research-card-cta{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;margin-top:20px;border-bottom:1px solid var(--accent);padding-bottom:3px;font-size:.86rem;font-weight:750;color:var(--accent)}
+.coverflow .research-card-cta span{transition:transform .25s ease}
+.coverflow .research-card-hit:hover .research-card-cta span{transform:translate(3px,-3px)}
+.coverflow-controls,.coverflow-position{display:none}
+.coverflow:focus-visible{outline:2px solid var(--accent);outline-offset:5px}
+.coverflow.is-coverflow .coverflow-track{display:block;position:relative;height:470px;perspective:1150px;isolation:isolate;overflow:hidden;touch-action:pan-y}
+.coverflow.is-coverflow .research-card,
+.coverflow.is-coverflow .research-card:last-child{position:absolute;top:6px;left:50%;width:min(42%,440px);min-height:414px;max-height:450px;margin:0;padding:25px 24px 24px;grid-column:auto;transform-style:preserve-3d;transform-origin:center;will-change:transform,opacity;transition:transform .65s cubic-bezier(.22,.9,.22,1),opacity .5s ease,filter .5s ease,box-shadow .5s ease;cursor:pointer}
+.coverflow.is-coverflow .research-card[data-offset="0"]{z-index:5;transform:translateX(-50%) translateZ(70px) rotateY(0deg) scale(1);opacity:1;filter:none;box-shadow:0 22px 50px rgba(0,0,0,.24);pointer-events:auto}
+.coverflow.is-coverflow .research-card[data-offset="-1"]{z-index:4;transform:translateX(-142%) translateZ(-50px) rotateY(24deg) scale(.86);opacity:.74;filter:saturate(.75);pointer-events:auto}
+.coverflow.is-coverflow .research-card[data-offset="1"]{z-index:4;transform:translateX(42%) translateZ(-50px) rotateY(-24deg) scale(.86);opacity:.74;filter:saturate(.75);pointer-events:auto}
+.coverflow.is-coverflow .research-card[data-offset="-2"]{z-index:2;transform:translateX(-232%) translateZ(-150px) rotateY(34deg) scale(.72);opacity:.16;filter:saturate(.5);pointer-events:none}
+.coverflow.is-coverflow .research-card[data-offset="2"]{z-index:2;transform:translateX(132%) translateZ(-150px) rotateY(-34deg) scale(.72);opacity:.16;filter:saturate(.5);pointer-events:none}
+.coverflow.is-coverflow .research-card[data-offset]:not([data-offset="0"]) .research-icon *{animation-play-state:paused}
+.coverflow.is-coverflow .research-card .research-card-hit{min-height:0}
+.coverflow.is-coverflow .research-card h3{font-size:1.14rem;line-height:1.3;margin-top:17px}
+.coverflow.is-coverflow .research-card p{font-size:.87rem;line-height:1.53}
+.coverflow.is-coverflow .research-card .tags{margin-top:13px}
+.coverflow.is-coverflow .research-card .research-card-cta{margin-top:16px}
+.coverflow.is-coverflow .coverflow-controls{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:3px}
+.coverflow-arrow{display:grid;place-items:center;width:42px;height:42px;min-width:42px;border-radius:50%;border:1px solid var(--border);background:var(--paper);color:var(--ink);font-size:1.35rem;transition:border-color .2s,background .2s}
+.coverflow-arrow:hover{border-color:var(--accent);background:var(--soft)}
+.coverflow-arrow:focus-visible,.coverflow-dot:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.coverflow-dots{display:flex;align-items:center;justify-content:center;gap:6px}
+.coverflow-dot{min-height:38px;min-width:24px;border:0;border-radius:20px;padding:8px;display:grid;place-items:center;background:transparent}
+.coverflow-dot span{display:block;width:8px;height:8px;border-radius:8px;background:var(--mute);opacity:.38;transition:width .25s ease,background .25s ease,opacity .25s ease}
+.coverflow-dot[aria-pressed="true"] span{width:21px;background:var(--accent);opacity:1}
+.coverflow.is-coverflow .coverflow-position{display:block;text-align:center;margin:8px 0 0;font-size:.78rem;letter-spacing:.02em;color:var(--mute)}
+@media(max-width:760px){
+.coverflow-track{grid-template-columns:1fr}
+.coverflow .research-card:last-child{grid-column:auto;width:100%}
+.coverflow.is-coverflow .coverflow-track{height:456px}
+.coverflow.is-coverflow .research-card,.coverflow.is-coverflow .research-card:last-child{width:min(82vw,390px);min-height:414px;max-height:435px;padding:21px}
+.coverflow.is-coverflow .research-card[data-offset="-1"]{transform:translateX(-114%) translateZ(-35px) rotateY(16deg) scale(.87);opacity:.58}
+.coverflow.is-coverflow .research-card[data-offset="1"]{transform:translateX(14%) translateZ(-35px) rotateY(-16deg) scale(.87);opacity:.58}
+.coverflow.is-coverflow .research-card[data-offset="-2"]{transform:translateX(-200%) translateZ(-120px) rotateY(22deg) scale(.75);opacity:0}
+.coverflow.is-coverflow .research-card[data-offset="2"]{transform:translateX(100%) translateZ(-120px) rotateY(-22deg) scale(.75);opacity:0}
+.coverflow.is-coverflow .research-card h3{font-size:1.06rem}
+.coverflow.is-coverflow .research-card p{font-size:.82rem;line-height:1.52}
+.coverflow.is-coverflow .research-card .tags span{font-size:.67rem}
+}
+@media(max-width:375px){
+.coverflow.is-coverflow .coverflow-track{height:480px}
+.coverflow.is-coverflow .research-card,.coverflow.is-coverflow .research-card:last-child{min-height:450px;max-height:none}
+}
+@media(prefers-reduced-motion:reduce){
+.coverflow.is-coverflow .research-card,.coverflow-dot span,.coverflow-arrow,.research-card-cta span{transition:none!important}
+}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <header><nav class="wrap"><a class="arabic-brand" href="#top" lang="ar" dir="rtl" aria-label="حَسْبُنَا اللَّهُ وَنِعْمَالنَّصِيرُ" title="حَسْبُنَا اللَّهُ وَنِعْمَالنَّصِيرُ"><span class="arabic-brand-line"><span class="arabic-measure" aria-hidden="true">حَسْبُنَا اللَّهُ وَنِعْمَالنَّصِيرُ</span><span class="arabic-ink" aria-hidden="true" data-arabic-text="حَسْبُنَا اللَّهُ وَنِعْمَالنَّصِيرُ">حَسْبُنَا اللَّهُ وَنِعْمَالنَّصِيرُ</span></span></a><div class="links"><a href="#research">Research</a><a href="#publications">Publications</a><a href="#news">News</a><a href="#background">Background</a><a href="#contact">Contact</a><button type="button" id="theme" aria-label="Toggle theme">◐ Theme</button></div></nav></header>
@@ -467,39 +525,77 @@ header nav.wrap .arabic-brand:focus-visible{outline:2px solid var(--accent);outl
 <path class="draw-stroke draw-detail" pathLength="100" d="M 468 522 L 451 533 L 443 542 L 441 539 L 436 547 L 441 540 L 442 544 L 448 536 L 469 522" style="--delay:5.24s;--duration:0.79s"/>
 <path class="draw-stroke draw-detail" pathLength="100" d="M 352 518 L 348 530 L 351 523 L 352 528 L 354 525 L 356 527 L 350 539 L 353 533 L 355 540 L 356 527 L 352 525 L 352 521" style="--delay:5.25s;--duration:0.91s"/>
 <path class="draw-stroke draw-detail" pathLength="100" d="M 473 396 L 467 402 L 461 398 L 455 406 L 461 398 L 464 401 L 459 405 L 463 402 L 466 404 L 458 409 L 468 401 L 470 402 L 472 397" style="--delay:4.54s;--duration:1.03s"/></svg></div></figure></div></div>
-<section id="research"><div class="wrap"><div class="section-top"><div><div class="eyebrow">01 / Research</div><h2>Selected research areas</h2></div><p>Computational and experimental platforms for advanced biomedical applications.</p></div><div class="cards research-cards">
-<article class="card research-card" data-research="micro"><div class="symbol research-icon" aria-hidden="true"><svg viewBox="0 0 64 64" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M7 17H57M7 47H57" class="icon-faint"/>
+<section id="research"><div class="wrap"><div class="section-top"><div><div class="eyebrow">01 / Research</div><h2>Selected research areas</h2></div><p>Explore five research directions. Select a card to open its project page.</p></div>
+<div class="coverflow" id="research-coverflow" role="region" aria-roledescription="carousel" aria-label="Selected research areas" tabindex="0">
+<div class="coverflow-track"><article class="card research-card coverflow-slide" data-research="micro" aria-roledescription="slide" aria-label="1 of 5: Magnetic microrobotics &amp; deep RL">
+<a class="research-card-hit" href="research/magnetic-microrobotics.html" aria-label="Explore Magnetic microrobotics &amp; deep RL">
+<div class="symbol research-icon" aria-hidden="true"><svg viewBox="0 0 64 64" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M7 17H57M7 47H57" class="icon-faint"/>
 <path d="M9 32H55" class="icon-guide"/>
 <g class="micro-helix">
  <path d="M19 32c3-10 8-10 11 0s8 10 11 0 8-10 11 0" stroke-width="2.7"/>
  <path d="M19 32c3 10 8 10 11 0s8-10 11 0 8 10 11 0" class="icon-faint"/>
  <path d="M15 32H56" stroke-width="1.2"/>
  <circle cx="15" cy="32" r="3.1" fill="var(--soft)"/>
-</g><circle class="micro-target" cx="56" cy="32" r="4" stroke-dasharray="2 3"/></svg></div><h3>Magnetic microrobotics & deep RL</h3><p>PPO-based control of chiral magnetic micropropellers transporting cargo through confined channels, addressing mode switching, capture and release, and actuation latency.</p><div class="tags"><span>Deep reinforcement learning</span><span>Microrobotics</span></div></article>
-<article class="card research-card" data-research="acoustic"><div class="symbol research-icon" aria-hidden="true"><svg viewBox="0 0 64 64" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M7 14V50M57 14V50M7 14H57M7 50H57" class="icon-faint"/>
+</g><circle class="micro-target" cx="56" cy="32" r="4" stroke-dasharray="2 3"/></svg></div>
+<h3>Magnetic microrobotics & deep RL</h3>
+<p>PPO-based control of chiral magnetic micropropellers transporting cargo through confined channels, addressing mode switching, capture and release, and actuation latency.</p>
+<div class="tags"><span>Deep reinforcement learning</span><span>Microrobotics</span></div>
+<span class="research-card-cta">Explore research <span aria-hidden="true">↗</span></span>
+</a></article>
+<article class="card research-card coverflow-slide" data-research="acoustic" aria-roledescription="slide" aria-label="2 of 5: Acoustofluidic micronozzles">
+<a class="research-card-hit" href="research/acoustofluidic-micronozzles.html" aria-label="Explore Acoustofluidic micronozzles">
+<div class="symbol research-icon" aria-hidden="true"><svg viewBox="0 0 64 64" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M7 14V50M57 14V50M7 14H57M7 50H57" class="icon-faint"/>
 <path class="acoustic-wave wave-a" d="M9 30c4-13 8-13 12 0s8 13 12 0 8-13 12 0 8 13 12 0" stroke-width="2.5"/>
 <path class="acoustic-wave wave-b" d="M9 36c4-13 8-13 12 0s8 13 12 0 8-13 12 0 8 13 12 0" stroke-width="1.4"/>
 <circle class="acoustic-bead bead-up" cx="19" cy="21" r="3" fill="currentColor"/>
 <circle class="acoustic-bead bead-down" cx="45" cy="43" r="4" fill="currentColor" opacity=".8"/>
-<path d="M8 33H56" class="icon-guide"/></svg></div><h3>Acoustofluidic micronozzles</h3><p>Simulation-guided design and experimental validation of silicon–glass acoustofluidic nozzles for size-selective retention and separation.</p><div class="tags"><span>Microfabrication</span><span>Acoustofluidics</span></div></article>
-<article class="card research-card" data-research="foam"><div class="symbol research-icon" aria-hidden="true"><svg viewBox="0 0 64 64" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8 21V44c0 6 5 9 11 9h26c6 0 11-3 11-9V21" stroke-width="2"/>
+<path d="M8 33H56" class="icon-guide"/></svg></div>
+<h3>Acoustofluidic micronozzles</h3>
+<p>Simulation-guided design and experimental validation of silicon–glass acoustofluidic nozzles for size-selective retention and separation.</p>
+<div class="tags"><span>Microfabrication</span><span>Acoustofluidics</span></div>
+<span class="research-card-cta">Explore research <span aria-hidden="true">↗</span></span>
+</a></article>
+<article class="card research-card coverflow-slide" data-research="foam" aria-roledescription="slide" aria-label="3 of 5: Hemostatic biomaterials">
+<a class="research-card-hit" href="research/hemostatic-biomaterials.html" aria-label="Explore Hemostatic biomaterials">
+<div class="symbol research-icon" aria-hidden="true"><svg viewBox="0 0 64 64" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8 21V44c0 6 5 9 11 9h26c6 0 11-3 11-9V21" stroke-width="2"/>
 <path d="M13 22c5 3 9-3 14 0s9-3 14 0 8-3 12 0" class="icon-faint"/>
 <g class="foam-body"><path d="M13 42V33c0-4 4-5 7-5h24c4 0 7 1 7 5v9c0 4-4 6-8 6H21c-4 0-8-2-8-6Z" fill="var(--accent)" fill-opacity=".14"/>
 <circle cx="22" cy="37" r="2.5"/><circle cx="34" cy="34" r="3.4"/><circle cx="44" cy="39" r="2.7"/><circle cx="31" cy="44" r="2"/><circle cx="18" cy="43" r="1.2" fill="currentColor" stroke="none"/></g>
-<path d="M27 19V11m0 0-4 4m4-4 4 4" class="foam-down"/></svg></div><h3>Hemostatic biomaterials</h3><p>Preclinical bench validation, commercialization, and regulatory planning for an absorbable chitosan–starch hemostatic foam.</p><div class="tags"><span>Biomaterials</span><span>Medtech translation</span></div></article>
-<article class="card research-card" data-research="sort"><div class="symbol research-icon" aria-hidden="true"><svg viewBox="0 0 64 64" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8 32H29L50 12H57M29 32L50 52H57" stroke-width="2.3"/>
+<path d="M27 19V11m0 0-4 4m4-4 4 4" class="foam-down"/></svg></div>
+<h3>Hemostatic biomaterials</h3>
+<p>Preclinical bench validation, commercialization, and regulatory planning for an absorbable chitosan–starch hemostatic foam.</p>
+<div class="tags"><span>Biomaterials</span><span>Medtech translation</span></div>
+<span class="research-card-cta">Explore research <span aria-hidden="true">↗</span></span>
+</a></article>
+<article class="card research-card coverflow-slide" data-research="sort" aria-roledescription="slide" aria-label="4 of 5: Computer vision &amp; diagnostics">
+<a class="research-card-hit" href="research/computer-vision-diagnostics.html" aria-label="Explore Computer vision &amp; diagnostics">
+<div class="symbol research-icon" aria-hidden="true"><svg viewBox="0 0 64 64" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8 32H29L50 12H57M29 32L50 52H57" stroke-width="2.3"/>
 <path d="M8 26H28M8 38H28" class="icon-faint"/>
 <g class="sort-gate"><path d="M29 32L42 22" stroke-width="3.2"/><circle cx="29" cy="32" r="3.2" fill="var(--soft)"/></g>
 <circle class="sort-cell" cx="15" cy="32" r="5" fill="var(--accent)" fill-opacity=".2"/>
 <rect class="sort-scan" x="8" y="24" width="14" height="16" rx="2" stroke-dasharray="2 2"/>
-<path d="M46 12h8M46 52h8" class="icon-faint"/></svg></div><h3>Computer vision & diagnostics</h3><p>Image-activated microfluidic cell sorting, magnetically gated routing, and machine-learning-enabled biomedical sensing.</p><div class="tags"><span>Computer vision</span><span>Microfluidics</span></div></article>
-<article class="card research-card" data-research="wbc"><div class="symbol research-icon" aria-hidden="true"><svg viewBox="0 0 64 64" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="24" cy="32" r="16" stroke-width="2.4" fill="var(--accent)" fill-opacity=".07"/>
+<path d="M46 12h8M46 52h8" class="icon-faint"/></svg></div>
+<h3>Computer vision & diagnostics</h3>
+<p>Image-activated microfluidic cell sorting, magnetically gated routing, and machine-learning-enabled biomedical sensing.</p>
+<div class="tags"><span>Computer vision</span><span>Microfluidics</span></div>
+<span class="research-card-cta">Explore research <span aria-hidden="true">↗</span></span>
+</a></article>
+<article class="card research-card coverflow-slide" data-research="wbc" aria-roledescription="slide" aria-label="5 of 5: WBC transfer learning &amp; biomedical AI">
+<a class="research-card-hit" href="research/wbc-transfer-learning.html" aria-label="Explore WBC transfer learning &amp; biomedical AI">
+<div class="symbol research-icon" aria-hidden="true"><svg viewBox="0 0 64 64" width="46" height="46" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="24" cy="32" r="16" stroke-width="2.4" fill="var(--accent)" fill-opacity=".07"/>
 <path class="wbc-nucleus" d="M17 29c-3-8 5-12 9-7 5-4 12 4 7 9 5 7-2 12-8 9-8 7-14-2-8-11Z" fill="var(--accent)" fill-opacity=".27" stroke-width="1.6"/>
 <circle cx="39" cy="15" r="3" class="wbc-node n1" fill="var(--soft)"/>
 <circle cx="53" cy="27" r="3" class="wbc-node n2" fill="var(--soft)"/>
 <circle cx="48" cy="46" r="3" class="wbc-node n3" fill="var(--soft)"/>
 <path d="M36 22l3-7m-2 18 16-6m-15 6 10 13M39 15l14 12-5 19" class="icon-faint"/>
-<path d="M8 16v-5h5M8 48v5h5M56 16v-5h-5M56 48v5h-5" class="wbc-detect"/></svg></div><h3>WBC transfer learning & biomedical AI</h3><p>Exploring data-efficient transfer learning and synthetic image augmentation for fine-grained white blood cell classification from limited labeled blood-smear datasets.</p><div class="tags"><span>Biomedical AI</span><span>Transfer learning</span><span>In development</span></div></article>
+<path d="M8 16v-5h5M8 48v5h5M56 16v-5h-5M56 48v5h-5" class="wbc-detect"/></svg></div>
+<h3>WBC transfer learning & biomedical AI</h3>
+<p>Exploring data-efficient transfer learning and synthetic image augmentation for fine-grained white blood cell classification from limited labeled blood-smear datasets.</p>
+<div class="tags"><span>Biomedical AI</span><span>Transfer learning</span><span>In development</span></div>
+<span class="research-card-cta">Explore research <span aria-hidden="true">↗</span></span>
+</a></article></div>
+<div class="coverflow-controls"><button class="coverflow-arrow" type="button" data-direction="-1" aria-label="Previous research area">←</button><div class="coverflow-dots" role="group" aria-label="Choose research area"><button type="button" class="coverflow-dot" data-slide="0" aria-label="Show Magnetic microrobotics &amp; deep RL" aria-pressed="true"><span></span></button><button type="button" class="coverflow-dot" data-slide="1" aria-label="Show Acoustofluidic micronozzles" aria-pressed="false"><span></span></button><button type="button" class="coverflow-dot" data-slide="2" aria-label="Show Hemostatic biomaterials" aria-pressed="false"><span></span></button><button type="button" class="coverflow-dot" data-slide="3" aria-label="Show Computer vision &amp; diagnostics" aria-pressed="false"><span></span></button><button type="button" class="coverflow-dot" data-slide="4" aria-label="Show WBC transfer learning &amp; biomedical AI" aria-pressed="false"><span></span></button></div><button class="coverflow-arrow" type="button" data-direction="1" aria-label="Next research area">→</button></div>
+<p class="coverflow-position" aria-live="polite" aria-atomic="true">01 / 05 · Magnetic microrobotics &amp; deep RL</p>
 </div></div></section>
 <section id="publications"><div class="wrap"><div class="eyebrow">02 / Scholarship</div><div class="section-top"><div><h2>Selected publications &amp; presentations</h2></div><p>Peer-reviewed articles and selected conference contributions, organized by publication year (newest first).</p></div><h3 class="pub-group">Peer-reviewed journal articles</h3><article class="pub"><b>2026</b><div><h4><a href="https://doi.org/10.1016/j.isci.2026.117777">Earth-observation variables identify temperature-centered protein-family covariation across macroalgal genomes ↗</a></h4><p>Alexandra Mystikou, David R. Nelson, Diana C. El Assal, Ashish K. Jaiswal, Mehar Sultana, Cecilia Rad-Menendez, Noura Al-Mansoori, Sewar T. Elias, <strong>Ma-sum Abdul-Hamid</strong>, et al.</p><p><em>iScience</em>, 29(11), 117777 · Published online October 7, 2026</p><p><a class="extra-link" href="https://www.cell.com/iscience/fulltext/S2589-0042(26)03158-5">Publisher article ↗</a></p></div></article>
 <article class="pub"><b>2025</b><div><h4><a href="https://doi.org/10.1109/ACCESS.2025.3550948">Off-the-Jaw Tactile Sensing System for Tissue Stiffness and Thickness Assessment in Minimally Invasive Surgery ↗</a></h4><p>Wael Othman, Kojo E. Vandyck, <strong>Ma-sum Abdul-Hamid</strong>, Carlos Abril, Juan S. Barajas-Gamboa, Juan P. Pantoja, Mohammad A. Qasaimeh</p><p><em>IEEE Access</em>, 13, 49320–49333</p></div></article>
@@ -598,5 +694,55 @@ header nav.wrap .arabic-brand:focus-visible{outline:2px solid var(--accent);outl
    else entries.forEach(x=>x.el.textContent=x.text);
  }
  requestAnimationFrame(advance);
+})();
+</script><script>
+/* Research Cover Flow: arrows, swipe, pagination, keyboard, and accessible links. */
+(function(){
+ const root=document.getElementById('research-coverflow');
+ if(!root)return;
+ const slides=[...root.querySelectorAll('.coverflow-slide')];
+ const dots=[...root.querySelectorAll('.coverflow-dot')];
+ const arrows=[...root.querySelectorAll('.coverflow-arrow')];
+ const status=root.querySelector('.coverflow-position');
+ if(slides.length!==5||dots.length!==slides.length)return;
+ let selected=0;let startX=null,startY=null;
+ const length=slides.length,side=Math.floor(length/2);
+ function show(next){
+   selected=(next+length)%length;
+   slides.forEach((slide,i)=>{
+     const offset=((i-selected+length+side)%length)-side;
+     slide.dataset.offset=String(offset);
+     slide.setAttribute('aria-hidden',offset===0?'false':'true');
+     const link=slide.querySelector('.research-card-hit');
+     if(link)link.tabIndex=offset===0?0:-1;
+   });
+   dots.forEach((dot,i)=>dot.setAttribute('aria-pressed',String(i===selected)));
+   status.textContent=String(selected+1).padStart(2,'0')+' / '+String(length).padStart(2,'0')+' · '+slides[selected].querySelector('h3').textContent;
+ }
+ arrows.forEach(button=>button.addEventListener('click',()=>show(selected+Number(button.dataset.direction))));
+ dots.forEach(button=>button.addEventListener('click',()=>show(Number(button.dataset.slide))));
+ slides.forEach((slide,i)=>slide.addEventListener('click',e=>{
+   if(i!==selected){e.preventDefault();show(i)}
+ }));
+ root.addEventListener('keydown',e=>{
+   if(e.altKey||e.ctrlKey||e.metaKey)return;
+   if(e.key==='ArrowRight'){e.preventDefault();show(selected+1)}
+   else if(e.key==='ArrowLeft'){e.preventDefault();show(selected-1)}
+   else if(e.key==='Home'){e.preventDefault();show(0)}
+   else if(e.key==='End'){e.preventDefault();show(length-1)}
+ });
+ const track=root.querySelector('.coverflow-track');
+ track.addEventListener('touchstart',e=>{
+   if(e.touches.length!==1)return;
+   startX=e.touches[0].clientX;startY=e.touches[0].clientY;
+ },{passive:true});
+ track.addEventListener('touchend',e=>{
+   if(startX===null||!e.changedTouches.length)return;
+   const dx=e.changedTouches[0].clientX-startX,dy=e.changedTouches[0].clientY-startY;
+   startX=null;startY=null;
+   if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)show(selected+(dx<0?1:-1));
+ },{passive:true});
+ root.classList.add('is-coverflow');
+ show(0);
 })();
 </script></body></html>
