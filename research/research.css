@@ -1,6 +1,6 @@
 /* Research project pages — editorial visual system, dark mode by default. */
-:root{--bg:#f8faf8;--paper:#fff;--ink:#183034;--mute:#5b6c6c;--accent:#217f7c;--border:#dce7e3;--soft:#eaf3ef;--accentwash:rgba(33,127,124,.11);color-scheme:light;font-family:Inter,"Segoe UI",system-ui,-apple-system,sans-serif}
-html.dark{--bg:#101b1d;--paper:#182729;--ink:#e9f5f1;--mute:#b3c3bf;--accent:#83d2c4;--border:#36504b;--soft:#243b39;--accentwash:rgba(131,210,196,.1);color-scheme:dark}
+:root{--bg:#F6F4EE;--paper:#FFFEFB;--ink:#223538;--mute:#53635E;--accent:#226E68;--border:#D9DFD8;--soft:#E7EFEB;--gold:#92612D;--gold-wash:#F3E9D9;--gold-border:#D8BE97;--on-accent:#FFFEFB;--accentwash:rgba(34,110,104,.10);color-scheme:light;font-family:Inter,"Segoe UI",system-ui,-apple-system,sans-serif}
+html.dark{--bg:#101B1D;--paper:#213236;--ink:#F1EEE7;--mute:#BCCBC5;--accent:#80CBBB;--border:#415452;--soft:#2C403F;--gold:#D5AE78;--gold-wash:#3B352E;--gold-border:#8A7157;--on-accent:#101B1D;color-scheme:dark}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);line-height:1.62}
 a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
@@ -54,3 +54,21 @@ footer{border-top:1px solid var(--border);padding:26px 0 34px;color:var(--mute);
 @media(max-width:820px){.project-hero{grid-template-columns:1fr;gap:24px;padding:48px 0}.project-visual{min-height:290px}.page-grid{grid-template-columns:1fr;gap:23px}.project-aside{max-width:680px}.materials-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.container{width:min(100% - 36px,1130px)}.header-row{align-items:flex-start;flex-direction:column;gap:9px;padding:15px 0}.arabic-brand{font-size:15px}.header-actions{gap:14px}.project-breadcrumb{padding-top:22px}.project-hero{padding:37px 0 44px}.project-headline h1{font-size:clamp(2.4rem,11vw,3.4rem)}.project-visual{min-height:235px}.visual-icon{transform:scale(1.75)}.page-grid{padding:39px 0 49px}.materials-grid{grid-template-columns:1fr}.material-tile{min-height:auto}.project-switcher{font-size:.84rem}.project-switcher a{max-width:48%}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+
+/* Harmonized color treatment with the main academic homepage. */
+::selection{background:var(--gold-wash);color:var(--ink)}
+body,header,.project-aside,.focus-list li,.material-tile,.theme{transition:background-color .24s ease,color .24s ease,border-color .24s ease}
+.arabic-brand{color:var(--gold)}
+.arabic-brand:hover{color:var(--accent)}
+.project-breadcrumb a:hover,.backlink:hover,.project-switcher a:hover{color:var(--gold)}
+.eyebrow{color:var(--gold)}
+.project-visual{border-color:var(--border)}
+.project-visual:before{border-color:var(--gold-border);opacity:.65}
+.visual-pulse.second{border-color:var(--gold)}
+.visual-label{color:var(--gold)}
+.project-status{background:var(--gold-wash);color:var(--gold);border:1px solid var(--gold-border)}
+.material-tile small{color:var(--gold)}
+.focus-list li span{color:var(--gold)}
+.theme:hover{border-color:var(--gold-border)}
+@media(prefers-reduced-motion:reduce){body,header,.project-aside,.focus-list li,.material-tile,.theme{transition:none!important}}
