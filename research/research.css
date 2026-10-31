@@ -1,5 +1,5 @@
 /* Research project pages — editorial visual system, dark mode by default. */
-:root{--bg:#F3F6F7;--paper:#FFFFFF;--ink:#1A2A38;--mute:#506476;--accent:#236E89;--border:#D5DFE6;--soft:#E8F1F6;--silver:#596C80;--silver-wash:#E9EEF3;--silver-border:#C6D2DC;--on-accent:#FFFFFF;--portrait-stroke:#657789;--accentwash:rgba(35,110,137,.10);color-scheme:light;font-family:Inter,"Segoe UI",system-ui,-apple-system,sans-serif}
+:root{--bg:#DFE4E8;--paper:#EAEDF0;--ink:#1A2A38;--mute:#506476;--accent:#236E89;--border:#BDC8D0;--soft:#D3DFE7;--silver:#596C80;--silver-wash:#D7E0E7;--silver-border:#ABBAC6;--on-accent:#FFFFFF;--portrait-stroke:#657789;--accentwash:rgba(35,110,137,.10);color-scheme:light;font-family:Inter,"Segoe UI",system-ui,-apple-system,sans-serif}
 html.dark{--bg:#101923;--paper:#253747;--ink:#F3F6F7;--mute:#BBC9D4;--accent:#78BED1;--border:#415668;--soft:#2C4558;--silver:#A9B7C6;--silver-wash:#2D3B4D;--silver-border:#8295A8;--on-accent:#101923;--portrait-stroke:#A9B7C6;color-scheme:dark}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);line-height:1.62}
 a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
