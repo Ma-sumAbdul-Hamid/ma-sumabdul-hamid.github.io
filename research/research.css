@@ -1,6 +1,6 @@
 /* Research project pages — editorial visual system, dark mode by default. */
-:root{--bg:#F6F4EE;--paper:#FFFEFB;--ink:#223538;--mute:#53635E;--accent:#226E68;--border:#D9DFD8;--soft:#E7EFEB;--gold:#92612D;--gold-wash:#F3E9D9;--gold-border:#D8BE97;--on-accent:#FFFEFB;--accentwash:rgba(34,110,104,.10);color-scheme:light;font-family:Inter,"Segoe UI",system-ui,-apple-system,sans-serif}
-html.dark{--bg:#101B1D;--paper:#213236;--ink:#F1EEE7;--mute:#BCCBC5;--accent:#80CBBB;--border:#415452;--soft:#2C403F;--gold:#D5AE78;--gold-wash:#3B352E;--gold-border:#8A7157;--on-accent:#101B1D;color-scheme:dark}
+:root{--bg:#F3F6F7;--paper:#FFFFFF;--ink:#1A2A38;--mute:#506476;--accent:#236E89;--border:#D5DFE6;--soft:#E8F1F6;--silver:#596C80;--silver-wash:#E9EEF3;--silver-border:#C6D2DC;--on-accent:#FFFFFF;--portrait-stroke:#657789;--accentwash:rgba(35,110,137,.10);color-scheme:light;font-family:Inter,"Segoe UI",system-ui,-apple-system,sans-serif}
+html.dark{--bg:#101923;--paper:#253747;--ink:#F3F6F7;--mute:#BBC9D4;--accent:#78BED1;--border:#415668;--soft:#2C4558;--silver:#A9B7C6;--silver-wash:#2D3B4D;--silver-border:#8295A8;--on-accent:#101923;--portrait-stroke:#A9B7C6;color-scheme:dark}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);line-height:1.62}
 a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
@@ -57,18 +57,18 @@ footer{border-top:1px solid var(--border);padding:26px 0 34px;color:var(--mute);
 
 
 /* Harmonized color treatment with the main academic homepage. */
-::selection{background:var(--gold-wash);color:var(--ink)}
+::selection{background:var(--silver-wash);color:var(--ink)}
 body,header,.project-aside,.focus-list li,.material-tile,.theme{transition:background-color .24s ease,color .24s ease,border-color .24s ease}
-.arabic-brand{color:var(--gold)}
+.arabic-brand{color:var(--silver)}
 .arabic-brand:hover{color:var(--accent)}
-.project-breadcrumb a:hover,.backlink:hover,.project-switcher a:hover{color:var(--gold)}
-.eyebrow{color:var(--gold)}
+.project-breadcrumb a:hover,.backlink:hover,.project-switcher a:hover{color:var(--silver)}
+.eyebrow{color:var(--silver)}
 .project-visual{border-color:var(--border)}
-.project-visual:before{border-color:var(--gold-border);opacity:.65}
-.visual-pulse.second{border-color:var(--gold)}
-.visual-label{color:var(--gold)}
-.project-status{background:var(--gold-wash);color:var(--gold);border:1px solid var(--gold-border)}
-.material-tile small{color:var(--gold)}
-.focus-list li span{color:var(--gold)}
-.theme:hover{border-color:var(--gold-border)}
+.project-visual:before{border-color:var(--silver-border);opacity:.65}
+.visual-pulse.second{border-color:var(--silver)}
+.visual-label{color:var(--silver)}
+.project-status{background:var(--silver-wash);color:var(--silver);border:1px solid var(--silver-border)}
+.material-tile small{color:var(--silver)}
+.focus-list li span{color:var(--silver)}
+.theme:hover{border-color:var(--silver-border)}
 @media(prefers-reduced-motion:reduce){body,header,.project-aside,.focus-list li,.material-tile,.theme{transition:none!important}}
