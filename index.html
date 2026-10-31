@@ -158,6 +158,8 @@ header nav.wrap .arabic-brand:focus-visible{outline:2px solid var(--accent);outl
 .coverflow-controls,.coverflow-position{display:none}
 .coverflow:focus-visible{outline:2px solid var(--accent);outline-offset:5px}
 .coverflow.is-coverflow .coverflow-track{display:block;position:relative;height:470px;perspective:1150px;isolation:isolate;overflow:hidden;touch-action:pan-y}
+.coverflow.is-coverflow .coverflow-track.is-dragging{cursor:grabbing;user-select:none;-webkit-user-select:none}
+.coverflow.is-coverflow .coverflow-track.is-gesturing .research-card{transition-duration:.2s,.2s,.2s,.2s}
 .coverflow.is-coverflow .research-card,
 .coverflow.is-coverflow .research-card:last-child{position:absolute;top:6px;left:50%;width:min(42%,440px);min-height:414px;max-height:450px;margin:0;padding:25px 24px 24px;grid-column:auto;transform-style:preserve-3d;transform-origin:center;will-change:transform,opacity;transition:transform .65s cubic-bezier(.22,.9,.22,1),opacity .5s ease,filter .5s ease,box-shadow .5s ease;cursor:pointer}
 .coverflow.is-coverflow .research-card[data-offset="0"]{z-index:5;transform:translateX(-50%) translateZ(70px) rotateY(0deg) scale(1);opacity:1;filter:none;box-shadow:0 22px 50px rgba(0,0,0,.24);pointer-events:auto}
@@ -822,10 +824,10 @@ html:not(.dark) .portrait-frame:not(.is-drawing):not(.is-complete) .portrait-pup
  const arrows=[...root.querySelectorAll('.coverflow-arrow')];
  const status=root.querySelector('.coverflow-position');
  if(slides.length!==5||dots.length!==slides.length)return;
- let selected=0;let startX=null,startY=null;
+ let selected=0;
  const length=slides.length,side=Math.floor(length/2);
  function show(next){
-   selected=(next+length)%length;
+   selected=((next%length)+length)%length;
    slides.forEach((slide,i)=>{
      const offset=((i-selected+length+side)%length)-side;
      slide.dataset.offset=String(offset);
@@ -849,42 +851,106 @@ html:not(.dark) .portrait-frame:not(.is-drawing):not(.is-complete) .portrait-pup
    else if(e.key==='End'){e.preventDefault();show(length-1)}
  });
  const track=root.querySelector('.coverflow-track');
- track.addEventListener('touchstart',e=>{
-   if(e.touches.length!==1)return;
-   startX=e.touches[0].clientX;startY=e.touches[0].clientY;
- },{passive:true});
- track.addEventListener('touchend',e=>{
-   if(startX===null||!e.changedTouches.length)return;
-   const dx=e.changedTouches[0].clientX-startX,dy=e.changedTouches[0].clientY-startY;
-   startX=null;startY=null;
-   if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)show(selected+(dx<0?1:-1));
- },{passive:true});
- track.addEventListener('touchcancel',()=>{startX=null;startY=null},{passive:true});
- // Trackpads emit many wheel events (including momentum) for a single swipe.
- // Treat the entire horizontal burst as ONE gesture so one swipe moves one card.
- let wheelDistance=0,lastWheelTime=0,wheelGestureHandled=false;
- const wheelGestureIdleMs=420;
+ // Use distance, not a long gesture lockout. Short swipes advance one card;
+ // sustained swipes continue through the five-card loop proportionally.
+ const wheelFirst=34,wheelEach=185,wheelIdle=105;
+ let wheelTravel=0,wheelSteps=0,wheelBase=selected,lastWheel=0,wheelEndTimer=null;
+ function distanceSteps(px,first,additional){
+   const distance=Math.abs(px);
+   return distance<first?0:Math.sign(px)*(1+Math.floor((distance-first)/additional));
+ }
  track.addEventListener('wheel',e=>{
-   if(e.ctrlKey||e.metaKey)return; // Preserve pinch-to-zoom.
+   if(e.ctrlKey||e.metaKey)return; // Allow trackpad pinch-zoom.
    let dx=e.deltaX,dy=e.deltaY;
    if(e.shiftKey&&Math.abs(dx)<1){dx=dy;dy=0}
-   if(Math.abs(dx)<1||Math.abs(dx)<=Math.abs(dy)*1.1)return; // Preserve vertical scrolling.
-   e.preventDefault(); // Avoid browser back/forward or horizontal page scrolling.
-   const scale=e.deltaMode===1?16:e.deltaMode===2?track.clientWidth:1;
-   const distance=dx*scale,now=performance.now();
-   if(now-lastWheelTime>wheelGestureIdleMs){
-     wheelDistance=0;
-     wheelGestureHandled=false;
+   if(Math.abs(dx)<.7||Math.abs(dx)<=Math.abs(dy)*1.1)return; // Vertical scrolling stays native.
+   e.preventDefault();
+   const amount=dx*(e.deltaMode===1?16:e.deltaMode===2?track.clientWidth:1);
+   const now=performance.now();
+   if(now-lastWheel>wheelIdle||(wheelTravel&&Math.sign(amount)!==Math.sign(wheelTravel)&&Math.abs(amount)>4)){
+     wheelTravel=0;
+     wheelSteps=0;
+     wheelBase=selected;
    }
-   lastWheelTime=now;
-   if(wheelGestureHandled)return; // Consume momentum; don't advance twice on one swipe.
-   if(wheelDistance&&Math.sign(distance)!==Math.sign(wheelDistance))wheelDistance=0;
-   wheelDistance+=distance;
-   if(Math.abs(wheelDistance)>=65){
-     show(selected+(wheelDistance>0?1:-1)); // Retain endless wraparound.
-     wheelGestureHandled=true;
+   lastWheel=now;
+   if(wheelTravel&&Math.sign(amount)!==Math.sign(wheelTravel)&&Math.abs(amount)<=4)return;
+   wheelTravel+=amount;
+   const steps=distanceSteps(wheelTravel,wheelFirst,wheelEach);
+   if(steps!==wheelSteps){
+     wheelSteps=steps;
+     show(wheelBase+steps);
    }
+   track.classList.add('is-gesturing');
+   clearTimeout(wheelEndTimer);
+   wheelEndTimer=setTimeout(()=>track.classList.remove('is-gesturing'),160);
  },{passive:false});
+
+ // Physical click-and-drag on a mouse/trackpad, and direct touchscreen drags.
+ // A long drag can travel through several cards (and multiple full revolutions).
+ let drag=null,ignoreClickUntil=0;
+ function releaseDrag(e){
+   if(!drag||drag.id!==e.pointerId)return;
+   const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+   if(drag.active){
+     if(drag.steps===0&&Math.abs(dx)>=24&&Math.abs(dx)>Math.abs(dy)*1.2){
+       show(drag.base+(dx<0?1:-1));
+     }
+     ignoreClickUntil=performance.now()+350;
+   }
+   if(track.hasPointerCapture(e.pointerId))track.releasePointerCapture(e.pointerId);
+   track.classList.remove('is-dragging','is-gesturing');
+   drag=null;
+ }
+ if(window.PointerEvent){
+   track.addEventListener('pointerdown',e=>{
+     if(!e.isPrimary||e.button!==0)return;
+     drag={id:e.pointerId,x:e.clientX,y:e.clientY,base:selected,steps:0,active:false};
+   });
+   track.addEventListener('pointermove',e=>{
+     if(!drag||drag.id!==e.pointerId)return;
+     const dx=e.clientX-drag.x,dy=e.clientY-drag.y;
+     if(!drag.active){
+       if(Math.abs(dx)<12||Math.abs(dx)<Math.abs(dy)*1.25)return;
+       drag.active=true;
+       track.classList.add('is-dragging','is-gesturing');
+       if(!track.hasPointerCapture(e.pointerId))track.setPointerCapture(e.pointerId);
+     }
+     if(e.cancelable&&e.pointerType!=='touch')e.preventDefault();
+     const steps=distanceSteps(-dx,36,120);
+     if(steps!==drag.steps){
+       drag.steps=steps;
+       show(drag.base+steps);
+     }
+   });
+   track.addEventListener('pointerup',releaseDrag);
+   track.addEventListener('pointercancel',e=>{
+     if(!drag||drag.id!==e.pointerId)return;
+     track.classList.remove('is-dragging','is-gesturing');
+     drag=null;
+   });
+   // Suppress a link/card click generated at the end of an actual drag.
+   track.addEventListener('click',e=>{
+     if(performance.now()<ignoreClickUntil){
+       e.preventDefault();
+       e.stopImmediatePropagation();
+       ignoreClickUntil=0;
+     }
+   },true);
+ }else{
+   // Legacy touch fallback: modern browsers use pointer events above.
+   let startX=null,startY=null;
+   track.addEventListener('touchstart',e=>{
+     if(e.touches.length!==1)return;
+     startX=e.touches[0].clientX;startY=e.touches[0].clientY;
+   },{passive:true});
+   track.addEventListener('touchend',e=>{
+     if(startX===null||!e.changedTouches.length)return;
+     const dx=e.changedTouches[0].clientX-startX,dy=e.changedTouches[0].clientY-startY;
+     startX=null;startY=null;
+     if(Math.abs(dx)>=34&&Math.abs(dx)>Math.abs(dy)*1.25)show(selected+(dx<0?1:-1));
+   },{passive:true});
+   track.addEventListener('touchcancel',()=>{startX=null;startY=null},{passive:true});
+ }
  root.classList.add('is-coverflow');
  show(0);
 })();
