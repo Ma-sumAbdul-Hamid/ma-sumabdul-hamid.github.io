@@ -300,34 +300,19 @@ header nav.wrap .arabic-brand:hover{color:var(--accent)}
 @media(prefers-reduced-motion:reduce){body,header,.card,.news-entry,.news-navigation,.item,.btn,.footer-panel{transition:none!important}}
 
 
-/* Light-only portrait retouch: cover the full irregular curl silhouette
-   rather than the former circular center, and tint the remaining bright iris
-   from ABOVE the source artwork. Dark-mode source/appearance stay untouched. */
-.portrait-light-underlay{position:absolute;inset:0;width:100%;height:100%;z-index:0;display:none;pointer-events:none;filter:blur(1.7px);opacity:0}
-html:not(.dark) .portrait-frame .portrait-light-underlay{display:block}
-html:not(.dark) .portrait-frame.is-complete .portrait-light-underlay{opacity:1}
-html:not(.dark) .portrait-frame.is-drawing .portrait-light-underlay{animation:portraitFinalArtwork 1.65s ease-out 4.75s both}
-html:not(.dark) .portrait-frame:not(.is-drawing):not(.is-complete) .portrait-light-underlay{opacity:1}
-@media(prefers-reduced-motion:reduce){html:not(.dark) .portrait-frame .portrait-light-underlay{opacity:1!important;animation:none!important}}
-.portrait-light-pupil-overlay{position:absolute;inset:0;width:100%;height:100%;z-index:2;display:none;pointer-events:none;opacity:0}
-html:not(.dark) .portrait-frame .portrait-light-pupil-overlay{display:block}
-html:not(.dark) .portrait-frame.is-complete .portrait-light-pupil-overlay{opacity:1}
-html:not(.dark) .portrait-frame.is-drawing .portrait-light-pupil-overlay{animation:portraitFinalArtwork 1.65s ease-out 4.75s both}
-html:not(.dark) .portrait-frame:not(.is-drawing):not(.is-complete) .portrait-light-pupil-overlay{opacity:1}
-@media(prefers-reduced-motion:reduce){html:not(.dark) .portrait-frame .portrait-light-pupil-overlay{opacity:1!important;animation:none!important}}
+/* Light-mode portrait uses only the source sketch. Never add positioned
+   pupil or hair overlays: the source art and SVG viewBox have different
+   intrinsic layouts, and those patches can drift or become visible as shadows.
+   The subtle tonal adjustment is applied uniformly to the image pixels. */
+html:not(.dark) .portrait-frame .portrait-sketch{
+  filter:grayscale(.16) contrast(1.13);
+}
 </style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <header><nav class="wrap site-nav" aria-label="Main navigation"><a class="arabic-brand" href="#top" lang="ar" dir="rtl" aria-label="حَسْبُنَا اللَّهُ وَنِعْمَالنَّصِيرُ" title="حَسْبُنَا اللَّهُ وَنِعْمَالنَّصِيرُ"><span class="arabic-brand-line"><span class="arabic-measure" aria-hidden="true">حَسْبُنَا اللَّهُ وَنِعْمَالنَّصِيرُ</span><span class="arabic-ink" aria-hidden="true" data-arabic-text="حَسْبُنَا اللَّهُ وَنِعْمَالنَّصِيرُ">حَسْبُنَا اللَّهُ وَنِعْمَالنَّصِيرُ</span></span></a><button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-expanded="false" aria-controls="primary-links" aria-label="Open navigation" type="button"><span class="menu-bars" aria-hidden="true"><span></span><span></span><span></span></span><span class="menu-word">Menu</span></button><div class="links" id="primary-links"><a href="#research">Research</a><a href="#publications">Publications</a><a href="#news">News</a><a href="#background">Background</a><a href="#contact">Contact</a><button type="button" id="theme" aria-label="Toggle theme">◐ Theme</button></div></nav></header>
 <main id="main">
 <div class="hero wrap" id="top"><div class="hero-copy"><h1><span class="name-first">Ma-sum</span><span class="name-last">Abdul-Hamid.</span></h1><p class="mobile-hero-title">Ph.D. Candidate · Biomedical Engineering</p><p class="mobile-hero-summary">I’m a Penn State biomedical engineering Ph.D. candidate researching AI-driven microrobotics, acoustofluidics, and translational biomaterials.</p><p class="lead">Research at the intersection of intelligent microdevices, biomaterials, and translational medicine.</p><p class="muted hero-desktop-bio">I am a Ph.D. candidate in Biomedical Engineering at <a href="https://www.psu.edu/">Penn State</a>, working in the Active Biomaterials Laboratory with Prof. Igor S. Aronson. My research spans deep reinforcement learning for magnetic microrobots, acoustofluidic devices, and AI-enabled microfluidic diagnostics.</p><p class="muted hero-desktop-bio">Beyond the lab, I help lead the commercialization and preclinical validation of a bioresorbable hemostatic foam for trauma and surgical care.</p><div class="actions"><a class="btn primary" href="mailto:mma7015@psu.edu">Contact me ↗</a><a class="btn secondary" href="Ma-sum_Abdul-Hamid_CV_Public.pdf" target="_blank" rel="noopener noreferrer">View / Download CV ↗</a></div><div class="social"><a href="https://github.com/Ma-sumAbdul-Hamid">GitHub ↗</a><a href="https://www.linkedin.com/in/ma-sum-abdul-hamid-30a5451a9">LinkedIn ↗</a><a href="https://orcid.org/0009-0002-0323-3355">ORCID ↗</a></div></div>
-<div class="hero-portrait"><figure class="portrait-figure"><div class="portrait-frame" id="portrait-frame"><svg class="portrait-light-underlay" viewBox="0 0 773 1100" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
-<path d="M230 187 C213 181 205 161 207 145 C196 126 202 106 214 92 C210 71 229 59 242 52 C252 33 276 33 293 25 C308 12 328 17 347 15 C372 8 388 20 404 20 C429 24 447 36 462 46 C486 51 496 70 503 88 C518 103 516 130 507 145 C518 165 504 189 490 203 C481 190 479 174 471 161 C458 145 449 138 429 135 C405 130 380 136 352 140 C319 146 294 145 278 156 C262 171 250 185 246 214 C238 209 233 198 230 187 Z" fill="#192735" opacity=".68"/>
-<path d="M314 334 C322 335 328 335 332 346 C347 371 367 387 390 390 C411 396 429 390 449 371 C463 360 468 342 479 327 C485 319 490 333 485 353 C472 376 454 395 427 402 C402 411 377 411 353 401 C334 391 319 374 314 355 Z" fill="#1d2934" opacity=".72"/>
-<path d="M313 294 Q304 317 310 351 L321 356 Q316 332 333 307Z" fill="#1d2934" opacity=".55"/>
-<path d="M487 294 Q498 321 484 356 L470 359 Q481 333 472 307Z" fill="#1d2934" opacity=".55"/>
-<ellipse cx="355" cy="244" rx="9" ry="5.5" fill="#192633" opacity=".87"/>
-<ellipse cx="464" cy="244" rx="9" ry="5.5" fill="#192633" opacity=".87"/>
-</svg><img class="portrait-layer portrait-sketch" src="assets/portrait-pencil-reference.webp" width="773" height="1100" alt="Hand-drawn pencil portrait of Ma-sum Abdul-Hamid in a suit" fetchpriority="high" decoding="async"><svg class="portrait-light-pupil-overlay" viewBox="0 0 773 1100" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"><defs><filter id="iris-soften"><feGaussianBlur stdDeviation=".45"/></filter></defs><ellipse cx="464" cy="244" rx="10.1" ry="6.5" fill="#172332" opacity=".91" filter="url(#iris-soften)" style="mix-blend-mode:multiply"/></svg><svg class="portrait-stroke-svg" viewBox="0 0 773 1100" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"><path class="draw-stroke draw-outline" pathLength="100" d="M 272 183 C 255 151 257 116 276 91 C 285 67 319 53 342 51 C 370 35 416 36 452 55 C 488 59 521 89 525 121 C 540 146 538 176 522 211" style="--delay:0.10s;--duration:1.30s"/>
+<div class="hero-portrait"><figure class="portrait-figure"><div class="portrait-frame" id="portrait-frame"><img class="portrait-layer portrait-sketch" src="assets/portrait-pencil-reference.webp" width="773" height="1100" alt="Hand-drawn pencil portrait of Ma-sum Abdul-Hamid in a suit" fetchpriority="high" decoding="async"><svg class="portrait-stroke-svg" viewBox="0 0 773 1100" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"><path class="draw-stroke draw-outline" pathLength="100" d="M 272 183 C 255 151 257 116 276 91 C 285 67 319 53 342 51 C 370 35 416 36 452 55 C 488 59 521 89 525 121 C 540 146 538 176 522 211" style="--delay:0.10s;--duration:1.30s"/>
 <path class="draw-stroke draw-outline" pathLength="100" d="M 293 174 C 279 205 285 275 302 318 C 318 350 334 376 364 394 C 389 408 421 416 451 397 C 479 380 495 354 510 322 C 522 283 531 240 523 201" style="--delay:0.21s;--duration:1.42s"/>
 <path class="draw-stroke draw-outline" pathLength="100" d="M 281 194 C 270 200 272 239 282 269 C 289 295 296 299 301 304" style="--delay:0.32s;--duration:1.54s"/>
 <path class="draw-stroke draw-outline" pathLength="100" d="M 523 206 C 534 190 549 204 548 231 C 544 260 534 279 520 282" style="--delay:0.43s;--duration:1.66s"/>
