@@ -22,11 +22,13 @@
  pointer-events:none;opacity:0;clip-path:inset(0 100% 0 0);
 }
 html.portrait-js #portrait-frame:not(.is-drawing):not(.is-complete) .portrait-color-pass{opacity:0}
+/* Five-second sequence: ~3 seconds to draw, a pause to appreciate the sketch,
+   then the final color fills over the remaining ~1.5 seconds. */
 #portrait-frame.is-drawing::before{
- opacity:1;animation:avatarPencilSweep 2s linear both!important;
+ opacity:1;animation:avatarPencilSweep 4.8s linear both!important;
 }
 #portrait-frame.is-drawing .portrait-color-pass{
- opacity:1;animation:avatarColorFill 2s cubic-bezier(.32,.03,.18,1) both!important;
+ opacity:1;animation:avatarColorFill 4.8s linear both!important;
 }
 #portrait-frame.is-complete::before{opacity:0;display:none!important}
 #portrait-frame.is-complete .portrait-color-pass{
@@ -34,13 +36,16 @@ html.portrait-js #portrait-frame:not(.is-drawing):not(.is-complete) .portrait-co
 }
 @keyframes avatarPencilSweep{
  0%{opacity:1;clip-path:inset(0 100% 0 0)}
- 48%{opacity:1;clip-path:inset(0 0 0 0)}
- 75%{opacity:.9;clip-path:inset(0 0 0 0)}
- 99%{opacity:0;clip-path:inset(0 0 0 0)}
- 100%{opacity:0;clip-path:inset(0 0 0 0)}
+ 15%{opacity:1;clip-path:inset(0 82% 0 0)}
+ 30%{opacity:1;clip-path:inset(0 56% 0 0)}
+ 46%{opacity:1;clip-path:inset(0 28% 0 0)}
+ 62%,69%{opacity:1;clip-path:inset(0 0 0 0)}
+ 83%{opacity:1;clip-path:inset(0 0 0 45%)}
+ 100%{opacity:0;clip-path:inset(0 0 0 100%)}
 }
 @keyframes avatarColorFill{
- 0%,37%{opacity:1;clip-path:inset(0 100% 0 0)}
+ 0%,69%{opacity:1;clip-path:inset(0 100% 0 0)}
+ 83%{opacity:1;clip-path:inset(0 55% 0 0)}
  100%{opacity:1;clip-path:inset(0 0 0 0)}
 }
 @media(max-width:760px){
@@ -97,8 +102,15 @@ html.portrait-js #portrait-frame:not(.is-drawing):not(.is-complete) .portrait-co
   if(reduce.matches){finish();return}
   started=true;
   frame.classList.add("is-drawing");
-  img.addEventListener("animationend",finish,{once:true});
-  window.setTimeout(finish,2200);
+  // Complete only after the color phase ends, not after another CSS animation.
+  const onColorEnd=e=>{
+   if(e.target===img&&e.animationName==="avatarColorFill"){
+    img.removeEventListener("animationend",onColorEnd);
+    finish();
+   }
+  };
+  img.addEventListener("animationend",onColorEnd);
+  window.setTimeout(finish,5100);
  }
  if(reduce.matches){finish();return}
  if(reduce.addEventListener)reduce.addEventListener("change",e=>{if(e.matches)finish()});
