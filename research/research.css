@@ -84,3 +84,9 @@ main:focus{outline:none}
 .material-tile a,.awaiting a{font-weight:750;text-decoration:underline;text-underline-offset:3px;color:var(--accent)}
 .material-tile a:focus-visible,.project-switcher a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
 @media(prefers-reduced-motion:reduce){.visual-pulse,.visual-icon *, .project-visual *{animation:none!important;transition:none!important}}
+
+/* Linked section navigation on research detail pages. */
+.header-actions{flex-wrap:wrap;row-gap:8px}
+.header-actions .backlink{font-size:.79rem}
+@media(max-width:760px){.header-row{gap:12px;padding-top:12px;padding-bottom:12px}.header-actions{gap:10px 16px;justify-content:flex-start}}
+@media(max-width:560px){.header-actions .backlink{font-size:.76rem}.theme{padding:6px 9px}}
