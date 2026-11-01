@@ -397,7 +397,7 @@ html:not(.dark) .portrait-frame.is-drawing .portrait-pupil-retouch{animation:por
 .portrait-frame{aspect-ratio:4/5;isolation:auto}
 .portrait-frame .portrait-sketch{object-fit:contain;object-position:center;opacity:1;clip-path:none;visibility:visible;backface-visibility:hidden}
 html:not(.dark) .portrait-frame .portrait-sketch{mix-blend-mode:multiply;filter:grayscale(1)}
-html.dark .portrait-frame .portrait-sketch{mix-blend-mode:screen;filter:grayscale(1) invert(1)}
+html.dark .portrait-frame .portrait-sketch{mix-blend-mode:normal;filter:grayscale(1) brightness(.64) contrast(1.05);-webkit-mask-image:radial-gradient(ellipse 88% 85% at 50% 43%,#000 60%,transparent 100%);mask-image:radial-gradient(ellipse 88% 85% at 50% 43%,#000 60%,transparent 100%)}
 .portrait-js .portrait-frame:not(.is-complete):not(.is-drawing) .portrait-sketch{visibility:hidden}
 .portrait-frame.is-drawing .portrait-sketch{animation:portraitPencilSketch 2s linear both;visibility:visible}
 .portrait-frame.is-complete .portrait-sketch{visibility:visible;clip-path:none;opacity:1}
