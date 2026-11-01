@@ -1,4 +1,4 @@
-/* Research project pages — editorial visual system, dark mode by default. */
+/* Research project pages — editorial visual system, light mode by default. */
 :root{--bg:#F1F5F9;--paper:#FFFFFF;--ink:#334155;--mute:#475569;--accent:#B45309;--border:#CBD5E1;--soft:#E2E8F0;--silver:#475569;--silver-wash:#E2E8F0;--silver-border:#94A3B8;--on-accent:#FFFFFF;--portrait-stroke:#64748B;--accentwash:rgba(180,83,9,.10);color-scheme:light;font-family:Inter,"Segoe UI",system-ui,-apple-system,sans-serif}
 html.dark{--bg:#0F172A;--paper:#1E293B;--ink:#E2E8F0;--mute:#CBD5E1;--accent:#F59E0B;--border:#475569;--soft:#334155;--silver:#CBD5E1;--silver-wash:#334155;--silver-border:#64748B;--on-accent:#0F172A;--portrait-stroke:#94A3B8;color-scheme:dark}
 html.dark{--accentwash:rgba(245,158,11,.12)}
