@@ -1,7 +1,7 @@
 /* Research project pages — editorial visual system, dark mode by default. */
-:root{--bg:#B2BEB5;--paper:#CED6CF;--ink:#29353B;--mute:#34464A;--accent:#60442E;--border:#95A49A;--soft:#BDCBC0;--silver:#394B47;--silver-wash:#ADBCB0;--silver-border:#84988A;--on-accent:#FFFFFF;--portrait-stroke:#5B6D66;--accentwash:rgba(96,68,46,.10);color-scheme:light;font-family:Inter,"Segoe UI",system-ui,-apple-system,sans-serif}
-html.dark{--bg:#252D2F;--paper:#354144;--ink:#E2E9E3;--mute:#C5D1C9;--accent:#D5AE8D;--border:#60716B;--soft:#414F4C;--silver:#B2BEB5;--silver-wash:#40504A;--silver-border:#81948A;--on-accent:#242C2C;--portrait-stroke:#B0BDB4;color-scheme:dark}
-html.dark{--accentwash:rgba(213,174,141,.12)}
+:root{--bg:#F1F5F9;--paper:#FFFFFF;--ink:#334155;--mute:#475569;--accent:#B45309;--border:#CBD5E1;--soft:#E2E8F0;--silver:#475569;--silver-wash:#E2E8F0;--silver-border:#94A3B8;--on-accent:#FFFFFF;--portrait-stroke:#64748B;--accentwash:rgba(180,83,9,.10);color-scheme:light;font-family:Inter,"Segoe UI",system-ui,-apple-system,sans-serif}
+html.dark{--bg:#0F172A;--paper:#1E293B;--ink:#E2E8F0;--mute:#CBD5E1;--accent:#F59E0B;--border:#475569;--soft:#334155;--silver:#CBD5E1;--silver-wash:#334155;--silver-border:#64748B;--on-accent:#0F172A;--portrait-stroke:#94A3B8;color-scheme:dark}
+html.dark{--accentwash:rgba(245,158,11,.12)}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);line-height:1.62}
 a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
 a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
@@ -57,8 +57,8 @@ footer{border-top:1px solid var(--border);padding:26px 0 34px;color:var(--mute);
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
 
-/* Muted tobacco-brown graphical accents in both matching themes. */
-html:not(.dark){--accentwash:rgba(96,68,46,.10)}
+/* Warm silicon-amber graphical accents in both themes. */
+html:not(.dark){--accentwash:rgba(180,83,9,.10)}
 
 /* Harmonized color treatment with the main academic homepage. */
 ::selection{background:var(--silver-wash);color:var(--ink)}
