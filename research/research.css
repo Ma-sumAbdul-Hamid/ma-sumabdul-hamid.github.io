@@ -76,3 +76,11 @@ body,header,.project-aside,.focus-list li,.material-tile,.theme{transition:backg
 .focus-list li span{color:var(--silver)}
 .theme:hover{border-color:var(--silver-border)}
 @media(prefers-reduced-motion:reduce){body,header,.project-aside,.focus-list li,.material-tile,.theme{transition:none!important}}
+
+/* Keyboard-visible skip navigation and readable project source links. */
+.skip{position:absolute;top:10px;left:-9999px;z-index:30;padding:10px 14px;border-radius:8px;background:var(--paper);color:var(--ink);font-weight:750}
+.skip:focus{left:12px;outline:3px solid var(--accent);outline-offset:2px}
+main:focus{outline:none}
+.material-tile a,.awaiting a{font-weight:750;text-decoration:underline;text-underline-offset:3px;color:var(--accent)}
+.material-tile a:focus-visible,.project-switcher a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+@media(prefers-reduced-motion:reduce){.visual-pulse,.visual-icon *, .project-visual *{animation:none!important;transition:none!important}}
