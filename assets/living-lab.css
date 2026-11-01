@@ -1,0 +1,186 @@
+/* Living Lab — two original, lightweight SVG scenes for the homepage.
+   Motion is decorative, never required to navigate or understand content. */
+:root{
+ --lab-water:#C2E7EE;--lab-water-deep:#7BBBCB;--lab-water-mist:#E7F7FA;
+ --lab-line:#376A7D;--lab-pencil:#58788A;--lab-coral:#CD7659;
+ --lab-highlight:#F4C987;--lab-grid:rgba(77,119,138,.09);
+}
+html.dark{
+ --lab-water:#2F6878;--lab-water-deep:#5297A9;--lab-water-mist:#25485B;
+ --lab-line:#9BD2DE;--lab-pencil:#91B5C5;--lab-coral:#FFB18F;
+ --lab-highlight:#EFC17C;--lab-grid:rgba(154,203,217,.095);
+}
+.hero.wrap.hero-text-only.hero-living{
+ display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
+ align-items:center;gap:clamp(22px,3.4vw,60px);max-width:1260px;
+ padding:clamp(54px,7vw,94px) clamp(24px,4vw,56px) clamp(52px,7vw,88px);
+ min-height:0;
+}
+.hero.wrap.hero-text-only.hero-living>.hero-copy{display:block;max-width:700px;min-width:0}
+.hero.wrap.hero-text-only.hero-living h1{font-size:clamp(3rem,5.1vw,5.35rem);max-width:680px;line-height:1.05}
+.hero.wrap.hero-text-only.hero-living .lead{font-size:clamp(1.09rem,1.56vw,1.3rem)}
+.hero.wrap.hero-text-only.hero-living .hero-desktop-bio{max-width:620px}
+.lab-hero-art{min-width:0;position:relative;align-self:center}
+.lab-art-heading{display:flex;align-items:center;justify-content:space-between;gap:9px;padding:0 10px 0 12px}
+.lab-art-kicker,.lab-art-live{font-family:"DM Sans",system-ui,sans-serif;font-size:.67rem;text-transform:uppercase;letter-spacing:.13em;font-weight:800;color:var(--lab-pencil)}
+.lab-art-live{display:flex;align-items:center;gap:7px;letter-spacing:.075em;font-size:.61rem}
+.lab-art-live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--lab-coral);box-shadow:0 0 0 3px color-mix(in srgb,var(--lab-coral) 14%,transparent);animation:labBeacon 3.8s ease-in-out infinite}
+.lab-pond{margin:0}
+.lab-pond svg{width:100%;height:auto;display:block;overflow:visible}
+.lab-pond .pond-shore{fill:none;stroke:var(--lab-line);stroke-width:2.7;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:6 9;opacity:.68}
+.lab-pond .pond-inside{fill:var(--lab-water);opacity:.58}
+.lab-pond .pond-inner{fill:var(--lab-water-mist);opacity:.44}
+.lab-pond .pond-depth{fill:var(--lab-water-deep);opacity:.24}
+.lab-pond .pond-doodle{fill:none;stroke:var(--lab-line);stroke-width:2.5;stroke-linecap:round;opacity:.65}
+.lab-pond .pond-cross{stroke:var(--lab-pencil);stroke-width:1.7;stroke-linecap:round;opacity:.65}
+.lab-pond .pond-microdot{fill:var(--lab-coral)}
+.lab-pond .pond-speck{fill:var(--lab-line);opacity:.37}
+.lab-pond .pond-caption{font-family:"DM Sans",sans-serif;font-size:12px;letter-spacing:2px;font-weight:700;fill:var(--lab-pencil)}
+.lab-pond .pond-flow-arrow{fill:none;stroke:var(--lab-line);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.42;stroke-dasharray:4 9;animation:labCurrent 16s linear infinite}
+.lab-pond .pond-float{animation:labFloat 5.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.lab-pond .pond-float.alt{animation-delay:-2.6s;animation-duration:7.2s}
+.lab-pond .pond-small-bubble{stroke:var(--lab-line);fill:var(--lab-water-mist);stroke-width:1.8;opacity:.75}
+.lab-pond .pond-ripple{fill:none;stroke:var(--lab-line);stroke-width:2;opacity:.5;transform-box:fill-box;transform-origin:center;animation:labRipple 4.1s ease-out infinite}
+.lab-pond .pond-ripple.two{animation-delay:-2s}
+.lab-pond .pond-swimmer-track{animation:labSwim 23s ease-in-out infinite;transform-box:view-box;transform-origin:center}
+.lab-pond .pond-swimmer-body{animation:labBob 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.lab-pond .pond-helix-tail{animation:labTail 1.6s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:center}
+.lab-pond .pond-cargo-travel{animation:labCargo 23s ease-in-out infinite;transform-box:view-box;transform-origin:center}
+.lab-pond .pond-cargo-bob{animation:labFloat 3.1s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.lab-pond .pond-signal{animation:labSignal 7s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.lab-pond .pond-signal.second{animation-delay:-3.5s}
+.lab-pond .pond-speech{animation:labSpeech 23s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.lab-pond .pond-tiny-star{animation:labTwinkle 6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.lab-pond .pond-tiny-star.second{animation-delay:-3s}
+.lab-pond .pond-swimmer-core{fill:#F6E9D1;stroke:#36596B;stroke-width:3}
+.lab-pond .pond-swimmer-window{fill:#A5D8E2;stroke:#36596B;stroke-width:2}
+.lab-pond .pond-swimmer-feature{stroke:#36596B;stroke-linecap:round;stroke-linejoin:round}
+.lab-pond .pond-swimmer-helix{fill:none;stroke:#D77F5F;stroke-width:5;stroke-linecap:round}
+.lab-pond .pond-swimmer-fin{fill:#E5B66D;stroke:#36596B;stroke-width:2.5}
+.lab-pond .pond-speech-box{fill:var(--paper);stroke:var(--lab-line);stroke-width:2}
+.lab-pond .pond-speech-text{fill:var(--ink);font:700 13px "DM Sans",sans-serif;letter-spacing:.03em}
+.lab-art-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:-10px 4px 0 12px}
+.lab-art-note{font:600 .71rem/1.45 "DM Sans",sans-serif;color:var(--lab-pencil);max-width:285px}
+.lab-motion-toggle{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--border);background:var(--paper);border-radius:999px;color:var(--ink);font-size:.72rem;font-weight:750;white-space:nowrap;padding:7px 12px;transition:border-color .2s,color .2s}
+.lab-motion-toggle:hover,.lab-motion-toggle:focus-visible{border-color:var(--accent);color:var(--accent)}
+.lab-motion-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.lab-motion-toggle svg{width:13px;height:13px;display:block;fill:currentColor}
+.lab-motion-toggle [data-play-icon]{display:none}
+html.lab-motion-paused .lab-motion-toggle [data-pause-icon]{display:none}
+html.lab-motion-paused .lab-motion-toggle [data-play-icon]{display:block}
+
+/* A hand-drawn notebook interlude between heading and project pillars. */
+.science-sketch{position:relative;isolation:isolate;border:1px solid var(--border);
+ border-radius:22px;overflow:hidden;background:var(--paper);margin:13px 0 25px;
+ padding:12px clamp(12px,2.2vw,28px) 4px;
+ box-shadow:0 10px 34px rgba(19,48,62,.035)}
+.science-sketch::before{content:"";position:absolute;inset:0;z-index:-1;
+ background-image:linear-gradient(to right,var(--lab-grid) 1px,transparent 1px),
+ linear-gradient(to bottom,var(--lab-grid) 1px,transparent 1px);
+ background-size:28px 28px;mask-image:linear-gradient(90deg,transparent 0%,#000 12%,#000 88%,transparent 100%);opacity:.85}
+.science-sketch-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 3px}
+.science-sketch-head span:first-child{color:var(--lab-pencil);text-transform:uppercase;font-weight:800;font-size:.67rem;letter-spacing:.14em}
+.science-sketch-head span:last-child{font-family:"DM Sans",sans-serif;font-size:.7rem;font-weight:700;color:var(--lab-pencil)}
+.science-sketch svg{width:100%;height:auto;display:block;overflow:visible;max-height:252px}
+.science-sketch .sketch-ink{fill:none;stroke:var(--lab-line);stroke-width:2.7;stroke-linecap:round;stroke-linejoin:round}
+.science-sketch .sketch-faint{fill:none;stroke:var(--lab-pencil);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;opacity:.57}
+.science-sketch .sketch-dashed{stroke-dasharray:5 9}
+.science-sketch .sketch-accent{fill:none;stroke:var(--lab-coral);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+.science-sketch .sketch-gold{fill:var(--lab-highlight)}
+.science-sketch .sketch-paper{fill:var(--paper)}
+.science-sketch .sketch-fill{fill:var(--lab-water);opacity:.37}
+.science-sketch .sketch-label{font:700 11px "DM Sans",sans-serif;letter-spacing:1.4px;fill:var(--lab-pencil)}
+.science-sketch .sketch-eq{font:italic 17px Georgia,serif;fill:var(--lab-line)}
+.science-sketch .sketch-hand{font:italic 14px Georgia,serif;fill:var(--lab-coral)}
+.science-sketch .sketch-rotor{animation:labRotate 42s linear infinite;transform-box:fill-box;transform-origin:center}
+.science-sketch .sketch-counter-rotor{animation:labRotateBack 28s linear infinite;transform-box:fill-box;transform-origin:center}
+.science-sketch .sketch-draw{stroke-dasharray:750;stroke-dashoffset:750;animation:labDraw 20s ease-in-out infinite}
+.science-sketch .sketch-draw.delay{animation-delay:-6.6s}
+.science-sketch .sketch-draw.later{animation-delay:-13.2s}
+.science-sketch .sketch-pulse{animation:labPulse 5.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.science-sketch .sketch-pulse.delay{animation-delay:-2.3s}
+.science-sketch .sketch-particle{animation:labParticle 8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.science-sketch .sketch-particle.second{animation-delay:-2.6s}
+.science-sketch .sketch-particle.third{animation-delay:-5.3s}
+.science-sketch .sketch-wave{animation:labWave 8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.science-sketch .sketch-wave.alt{animation-delay:-4s}
+.science-sketch-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:0 4px 9px;color:var(--lab-pencil);font-size:.73rem;font-weight:600}
+.science-sketch-foot .lab-foot-dots{display:flex;gap:5px}
+.science-sketch-foot .lab-foot-dots i{display:block;width:5px;height:5px;border-radius:50%;background:var(--lab-line);opacity:.34}
+.science-sketch-foot .lab-foot-dots i:nth-child(2){background:var(--lab-coral);opacity:.85}
+@keyframes labBeacon{0%,100%{opacity:.5;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
+@keyframes labFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes labRipple{0%{opacity:.46;transform:scale(.75)}75%,100%{opacity:0;transform:scale(1.45)}}
+@keyframes labCurrent{to{stroke-dashoffset:-130}}
+@keyframes labSwim{
+ 0%{transform:translate(0,4px) scaleX(1)}
+ 44%{transform:translate(139px,-16px) scaleX(1)}
+ 48%{transform:translate(148px,-14px) scaleX(1)}
+ 50%{transform:translate(148px,-14px) scaleX(-1)}
+ 94%{transform:translate(-7px,7px) scaleX(-1)}
+ 98%{transform:translate(-7px,7px) scaleX(-1)}
+ 100%{transform:translate(0,4px) scaleX(1)}
+}
+@keyframes labCargo{
+ 0%{transform:translate(0,0)}
+ 44%{transform:translate(145px,-22px)}
+ 50%{transform:translate(148px,-22px)}
+ 94%{transform:translate(-8px,4px)}
+ 100%{transform:translate(0,0)}
+}
+@keyframes labBob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-4px) rotate(2deg)}}
+@keyframes labTail{from{transform:scaleY(.84)}to{transform:scaleY(1.13)}}
+@keyframes labSignal{0%,15%,45%,100%{opacity:0;transform:scale(.7)}20%,36%{opacity:.75;transform:scale(1)}}
+@keyframes labSpeech{0%,12%,23%,61%,70%,100%{opacity:0;transform:translateY(5px)}15%,20%,64%,67%{opacity:1;transform:translateY(0)}}
+@keyframes labTwinkle{0%,100%{opacity:.35;transform:scale(.85)}55%{opacity:1;transform:scale(1.15)}}
+@keyframes labRotate{to{transform:rotate(360deg)}}
+@keyframes labRotateBack{to{transform:rotate(-360deg)}}
+@keyframes labDraw{0%{stroke-dashoffset:750;opacity:.18}12%,38%{stroke-dashoffset:0;opacity:1}64%,88%{stroke-dashoffset:0;opacity:.95}100%{stroke-dashoffset:-750;opacity:.14}}
+@keyframes labPulse{0%,100%{opacity:.45;transform:scale(.9)}50%{opacity:1;transform:scale(1.1)}}
+@keyframes labParticle{0%,100%{transform:translateX(-13px);opacity:.25}50%{transform:translateX(14px);opacity:1}}
+@keyframes labWave{0%,100%{transform:scaleY(.86)}50%{transform:scaleY(1.16)}}
+html.lab-motion-paused .lab-hero-art *,html.lab-motion-paused .science-sketch *,
+html.lab-motion-idle .lab-hero-art *,html.lab-motion-idle .science-sketch *{animation-play-state:paused!important}
+@media(max-width:1060px) and (min-width:761px){
+ .hero.wrap.hero-text-only.hero-living{grid-template-columns:minmax(0,1fr) minmax(0,.83fr);gap:14px;padding-inline:25px}
+ .hero.wrap.hero-text-only.hero-living h1{font-size:clamp(2.7rem,5vw,4.4rem)}
+ .lab-art-kicker{font-size:.6rem}
+ .lab-art-footer{flex-wrap:wrap;margin-top:-12px}
+}
+@media(max-width:760px){
+ .hero.wrap.hero-text-only.hero-living{display:flex;flex-direction:column;align-items:stretch;gap:0;padding:42px 20px 49px}
+ .hero.wrap.hero-text-only.hero-living>.hero-copy{display:contents}
+ .hero.wrap.hero-text-only.hero-living>.hero-copy>h1{order:1;text-align:center;font-size:clamp(2.5rem,10vw,4.2rem);margin:3px 0 10px}
+ .hero.wrap.hero-text-only.hero-living>.hero-copy>.mobile-hero-title{display:block;order:2;text-align:center}
+ .hero.wrap.hero-text-only.hero-living>.hero-copy>.mobile-hero-summary{display:block;order:3;max-width:460px;text-align:center;margin:8px auto 0}
+ .hero.wrap.hero-text-only.hero-living>.hero-copy>p.lead,
+ .hero.wrap.hero-text-only.hero-living>.hero-copy>p.muted.hero-desktop-bio{display:none}
+ .hero.wrap.hero-text-only.hero-living>.lab-hero-art{order:4;align-self:center;width:min(100%,500px);margin:18px auto 4px}
+ .hero.wrap.hero-text-only.hero-living>.hero-copy>.actions{order:5;justify-content:center;margin-top:19px}
+ .hero.wrap.hero-text-only.hero-living>.hero-copy>.social{order:6;justify-content:center;margin-top:16px}
+ .hero.wrap.hero-text-only.hero-living>.hero-copy>.home-interest-links{order:7;justify-content:center;margin-top:20px}
+ .hero.wrap.hero-text-only.hero-living>.hero-copy>.home-about-cta{order:8;text-align:center;margin-top:13px}
+ .lab-art-footer{margin-top:-17px}
+ .science-sketch{padding:12px 11px 4px;border-radius:18px}
+ .science-sketch svg{max-height:200px}
+ .science-sketch-head span:last-child{font-size:.64rem}
+}
+@media(max-width:460px){
+ .hero.wrap.hero-text-only.hero-living>.lab-hero-art{width:min(100%,440px);margin-top:15px}
+ .lab-art-heading{padding-inline:6px}
+ .lab-art-kicker{font-size:.59rem}
+ .lab-art-live{font-size:.55rem}
+ .lab-art-footer{gap:7px;padding-right:4px}
+ .lab-art-note{font-size:.66rem;max-width:170px}
+ .lab-motion-toggle{padding:6px 10px;font-size:.68rem}
+ .science-sketch-head span:last-child{display:none}
+ .science-sketch svg{min-width:580px;width:580px;max-width:none;height:auto;transform:translateX(calc((100vw - 604px)/5));}
+ .science-sketch{overflow:hidden}
+ .science-sketch-foot{font-size:.69rem}
+}
+@media(prefers-reduced-motion:reduce){
+ .lab-hero-art *, .science-sketch *{animation:none!important;transition:none!important}
+ .lab-motion-toggle{display:none}
+ .lab-art-live::before{animation:none}
+ .science-sketch .sketch-draw{stroke-dasharray:none;stroke-dashoffset:0;opacity:1}
+}
