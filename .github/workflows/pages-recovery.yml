@@ -1,0 +1,23 @@
+name: Recover stuck GitHub Pages deployment
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/pages-recovery.yml
+permissions:
+  contents: read
+  pages: write
+jobs:
+  clear-stale-pages-deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel stuck Pages deployment
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          DEPLOYMENT="9681a8ae80b8498f1812c87afcbb4eb2265c934d"
+          echo "Checking GitHub Pages deployment $DEPLOYMENT"
+          gh api "repos/${GITHUB_REPOSITORY}/pages/deployments/${DEPLOYMENT}" --jq '.status' || true
+          echo "Requesting cancellation of the stale deployment lock"
+          gh api -X POST "repos/${GITHUB_REPOSITORY}/pages/deployments/${DEPLOYMENT}/cancel"
