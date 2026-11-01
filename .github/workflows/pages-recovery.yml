@@ -1,4 +1,4 @@
-name: Recover stuck GitHub Pages deployment
+name: Diagnose Pages deployment state
 on:
   push:
     branches: [main]
@@ -6,18 +6,23 @@ on:
       - .github/workflows/pages-recovery.yml
 permissions:
   contents: read
-  pages: write
+  pages: read
+  deployments: read
 jobs:
-  clear-stale-pages-deployment:
+  inspect-pages-deployments:
     runs-on: ubuntu-latest
     steps:
-      - name: Cancel stuck Pages deployment
+      - name: Inspect Pages and environment deployment status
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          set -e
-          DEPLOYMENT="9681a8ae80b8498f1812c87afcbb4eb2265c934d"
-          echo "Checking GitHub Pages deployment $DEPLOYMENT"
-          gh api "repos/${GITHUB_REPOSITORY}/pages/deployments/${DEPLOYMENT}" --jq '.status' || true
-          echo "Requesting cancellation of the stale deployment lock"
-          gh api -X POST "repos/${GITHUB_REPOSITORY}/pages/deployments/${DEPLOYMENT}/cancel"
+          STALE="9681a8ae80b8498f1812c87afcbb4eb2265c934d"
+          echo "Pages deployment status:"
+          gh api "repos/${GITHUB_REPOSITORY}/pages/deployments/${STALE}" || true
+          echo "GitHub environment deployments:"
+          gh api "repos/${GITHUB_REPOSITORY}/deployments?environment=github-pages&per_page=30" --jq '.[] | {id,sha,created_at,environment}' || true
+          echo "Stale deployment statuses:"
+          gh api "repos/${GITHUB_REPOSITORY}/deployments?sha=${STALE}&per_page=30" --jq '.[].id' | while read -r id; do
+            echo "ID $id"
+            gh api "repos/${GITHUB_REPOSITORY}/deployments/$id/statuses" --jq '.[0:3] | map({state,created_at,description})' || true
+          done
