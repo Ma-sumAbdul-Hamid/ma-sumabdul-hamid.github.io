@@ -413,3 +413,6 @@ html.dark .portrait-frame .portrait-sketch{mix-blend-mode:screen;filter:grayscal
  .portrait-frame.is-drawing .portrait-sketch{animation:none!important}
  .portrait-js .portrait-frame .portrait-sketch{visibility:visible!important;clip-path:none!important}
 }
+
+/* Keep the Arabic phrase hidden until the portrait has decoded and both reveals can start together. */
+.portrait-pending .arabic-brand .arabic-ink{visibility:hidden}
