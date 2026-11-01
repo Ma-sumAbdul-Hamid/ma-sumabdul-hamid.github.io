@@ -385,3 +385,9 @@ html:not(.dark) .portrait-frame.is-drawing .portrait-pupil-retouch{animation:por
 .interior-page .news-entry[id],.interior-page .pub[id]{scroll-margin-top:100px}
 @media(max-width:860px){.preview-grid,.about-overview{grid-template-columns:repeat(2,minmax(0,1fr))}.about-overview article:last-child{grid-column:1/-1}}
 @media(max-width:570px){.interior-hero{padding-top:40px;padding-bottom:24px}.preview-grid,.about-overview{grid-template-columns:1fr}.about-overview article:last-child{grid-column:auto}.home-preview{padding-top:42px;padding-bottom:42px}.preview-card{padding:19px}.compact-contact .wrap{display:block}.compact-contact .lead{margin-top:11px}}
+
+/* Avoid repeating the tall homepage section spacing beneath inner-page introductions. */
+.interior-page #research,.interior-page #publications,.interior-page #news,.interior-page #background{padding-top:22px}
+.interior-page .section-top h2{margin-top:5px}
+.interior-page .interior-hero+.about-overview{padding-bottom:4px}
+@media(max-width:570px){.interior-page #research,.interior-page #publications,.interior-page #news,.interior-page #background{padding-top:12px}}
