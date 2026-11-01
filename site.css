@@ -565,3 +565,26 @@ html.portrait-js .portrait-stage:not(.is-complete):not(.is-drawing) .portrait-ca
  .institution-logo.logo-cern{width:52px}
  .institution-identity{gap:10px}
 }
+
+/* Professional development: verified, non-credit online coursework on About page. */
+.certification-section{padding:44px 0 70px;border-top:1px solid var(--border)}
+.certification-section>.wrap{max-width:1140px}
+.certificates-jump{margin-top:12px!important}
+.certificates-jump a{display:inline-flex;color:var(--accent);font-size:.89rem;font-weight:750;text-underline-offset:4px}
+.certificates-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:4px}
+.certificates-heading h2{margin:0 0 9px;font-size:clamp(1.75rem,3.1vw,2.35rem);line-height:1.2;letter-spacing:-.035em}
+.certificates-heading p{margin:0;color:var(--mute);line-height:1.55;font-size:.95rem;max-width:630px}
+.certificates-total{display:inline-flex;align-items:center;background:var(--soft);color:var(--ink);border:1px solid var(--border);border-radius:999px;padding:8px 14px;font-size:.77rem;font-weight:780;white-space:nowrap}
+.certificates-disclaimer{font-size:.81rem;color:var(--mute);line-height:1.55;margin:14px 0 31px;max-width:800px}
+.certificate-category-title{font-size:1.06rem;font-weight:770;margin:28px 0 13px;color:var(--ink)}
+.certificates-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.certificate-card{display:flex;flex-direction:column;min-width:0;min-height:184px;background:var(--paper);border:1px solid var(--border);border-radius:18px;padding:21px 22px;box-shadow:0 6px 24px rgba(27,58,73,.04)}
+.certificate-card-meta{display:flex;gap:9px;align-items:center;justify-content:space-between;flex-wrap:wrap;color:var(--mute);font-size:.77rem;line-height:1.4;font-weight:600}
+.certificate-provider{color:var(--accent);font-weight:800;letter-spacing:.025em}
+.certificate-card h4{font-size:1.06rem;margin:13px 0 7px;line-height:1.42;color:var(--ink)}
+.certificate-card>p{margin:0 0 17px;font-size:.85rem;line-height:1.55;color:var(--mute);flex:1}
+.certificate-links{display:flex;align-items:center;gap:9px 18px;flex-wrap:wrap}
+.certificate-links a{font-size:.81rem;font-weight:760;text-decoration:underline;text-underline-offset:3px;color:var(--accent)}
+.certificate-links a:focus-visible,.certificates-jump a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+#certificates{scroll-margin-top:95px}
+@media(max-width:680px){.certificates-grid{grid-template-columns:1fr}.certificate-card{min-height:0}.certification-section{padding:32px 0 48px}.certificates-heading{gap:12px}.certificate-card{padding:19px}}
