@@ -329,7 +329,7 @@ html:not(.dark) .portrait-frame:not(.is-drawing):not(.is-complete) .portrait-pup
 html:not(.dark) .portrait-frame.is-drawing .portrait-pupil-retouch{animation:portraitFinalArtwork .85s ease-out both}
 .research-pillars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin:16px 0 17px}
 .research-pillar{min-width:0;background:var(--paper);border:1px solid var(--border);border-radius:15px;padding:20px 19px 18px;display:flex;flex-direction:column}
-.pillar-number{font-size:.7rem;font-weight:850;letter-spacing:.12em;color:var(--accent)}
+
 .research-pillar h3{font-size:1.03rem;letter-spacing:-.025em;line-height:1.3;margin:8px 0}
 .research-pillar p{font-size:.84rem;line-height:1.56;color:var(--mute);margin:0 0 14px;flex:1}
 .pillar-links{display:flex;align-items:center;flex-wrap:wrap;gap:7px 14px}
@@ -574,7 +574,7 @@ html.portrait-js .portrait-stage:not(.is-complete):not(.is-drawing) .portrait-ca
 .certificates-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:4px}
 .certificates-heading h2{margin:0 0 9px;font-size:clamp(1.75rem,3.1vw,2.35rem);line-height:1.2;letter-spacing:-.035em}
 .certificates-heading p{margin:0;color:var(--mute);line-height:1.55;font-size:.95rem;max-width:630px}
-.certificates-total{display:inline-flex;align-items:center;background:var(--soft);color:var(--ink);border:1px solid var(--border);border-radius:999px;padding:8px 14px;font-size:.77rem;font-weight:780;white-space:nowrap}
+
 .certificates-disclaimer{font-size:.81rem;color:var(--mute);line-height:1.55;margin:14px 0 31px;max-width:800px}
 .certificate-category-title{font-size:1.06rem;font-weight:770;margin:28px 0 13px;color:var(--ink)}
 .certificates-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
