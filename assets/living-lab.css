@@ -43,6 +43,7 @@ html.dark{
 .lab-pond .pond-ripple{fill:none;stroke:var(--lab-line);stroke-width:2;opacity:.5;transform-box:fill-box;transform-origin:center;animation:labRipple 4.1s ease-out infinite}
 .lab-pond .pond-ripple.two{animation-delay:-2s}
 .lab-pond .pond-swimmer-track{animation:labSwim 23s ease-in-out infinite;transform-box:view-box;transform-origin:center}
+.lab-pond .pond-swimmer-turn{animation:labTurn 23s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
 .lab-pond .pond-swimmer-body{animation:labBob 3s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
 .lab-pond .pond-helix-tail{animation:labTail 1.6s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:center}
 .lab-pond .pond-cargo-travel{animation:labCargo 23s ease-in-out infinite;transform-box:view-box;transform-origin:center}
@@ -113,13 +114,16 @@ html.lab-motion-paused .lab-motion-toggle [data-play-icon]{display:block}
 @keyframes labRipple{0%{opacity:.46;transform:scale(.75)}75%,100%{opacity:0;transform:scale(1.45)}}
 @keyframes labCurrent{to{stroke-dashoffset:-130}}
 @keyframes labSwim{
- 0%{transform:translate(0,4px) scaleX(1)}
- 44%{transform:translate(139px,-16px) scaleX(1)}
- 48%{transform:translate(148px,-14px) scaleX(1)}
- 50%{transform:translate(148px,-14px) scaleX(-1)}
- 94%{transform:translate(-7px,7px) scaleX(-1)}
- 98%{transform:translate(-7px,7px) scaleX(-1)}
- 100%{transform:translate(0,4px) scaleX(1)}
+ 0%{transform:translate(0,4px)}
+ 44%{transform:translate(139px,-16px)}
+ 48%,50%{transform:translate(148px,-14px)}
+ 94%,98%{transform:translate(-7px,7px)}
+ 100%{transform:translate(0,4px)}
+}
+@keyframes labTurn{
+ 0%,48%{transform:scaleX(1)}
+ 50%,98%{transform:scaleX(-1)}
+ 100%{transform:scaleX(1)}
 }
 @keyframes labCargo{
  0%{transform:translate(0,0)}
@@ -139,6 +143,7 @@ html.lab-motion-paused .lab-motion-toggle [data-play-icon]{display:block}
 @keyframes labPulse{0%,100%{opacity:.45;transform:scale(.9)}50%{opacity:1;transform:scale(1.1)}}
 @keyframes labParticle{0%,100%{transform:translateX(-13px);opacity:.25}50%{transform:translateX(14px);opacity:1}}
 @keyframes labWave{0%,100%{transform:scaleY(.86)}50%{transform:scaleY(1.16)}}
+html.lab-motion-paused .lab-art-live::before,html.lab-motion-idle .lab-art-live::before{animation-play-state:paused!important}
 html.lab-motion-paused .lab-hero-art *,html.lab-motion-paused .science-sketch *,
 html.lab-motion-idle .lab-hero-art *,html.lab-motion-idle .science-sketch *{animation-play-state:paused!important}
 @media(max-width:1060px) and (min-width:761px){
@@ -174,8 +179,7 @@ html.lab-motion-idle .lab-hero-art *,html.lab-motion-idle .science-sketch *{anim
  .lab-art-note{font-size:.66rem;max-width:170px}
  .lab-motion-toggle{padding:6px 10px;font-size:.68rem}
  .science-sketch-head span:last-child{display:none}
- .science-sketch svg{min-width:580px;width:580px;max-width:none;height:auto;transform:translateX(calc((100vw - 604px)/5));}
- .science-sketch{overflow:hidden}
+ .science-sketch svg{min-width:0;width:100%;max-width:100%;height:auto;transform:none}
  .science-sketch-foot{font-size:.69rem}
 }
 @media(prefers-reduced-motion:reduce){
