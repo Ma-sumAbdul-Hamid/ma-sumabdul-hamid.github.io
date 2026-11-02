@@ -10,6 +10,7 @@
   const pond = document.querySelector('.hero-living .lab-hero-art');
   const swimmer = pond && pond.querySelector('.ocean-swimmer-track');
   const facing = swimmer && swimmer.querySelector('.ocean-robot-facing');
+  const toggle = document.querySelector('[data-lab-motion-toggle]');
   if (!pond || !swimmer || !facing || !window.requestAnimationFrame) return;
 
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -41,7 +42,7 @@
     { u: 0.37, v: 0.73 }
   ];
   let bounds, lookup = [], length = 1, travelled = 0;
-  let heading = -1, turning = 0, lastFrame = 0, frame = 0;
+  let heading = -1, turning = 0, lastTurnAt = 0, lastFrame = 0, frame = 0;
   let onScreen = true;
 
   function setBounds() {
@@ -113,6 +114,12 @@
   function animate(now) {
     frame = 0;
     if (!runningAllowed()) return;
+    // Limit JS layout/transform writes to 30 fps. SVG coil motion stays in CSS.
+    // Unlike a repeating observer, this callback schedules at most one frame.
+    if (lastFrame && now - lastFrame < 30) {
+      frame = window.requestAnimationFrame(animate);
+      return;
+    }
     const dt = Math.min((now - (lastFrame || now)) / 1000, 0.05);
     lastFrame = now;
 
@@ -121,22 +128,26 @@
     } else {
       const pxPerSecond = clamp(pond.clientWidth * 0.039, 26, 66);
       let advance = pxPerSecond * dt;
-      while (travelled + advance >= length) {
-        advance -= (length - travelled);
+      // At most one spline-leg change per frame; no unbounded while loops.
+      if (travelled + advance >= length) {
+        advance = travelled + advance - length;
         travelled = 0;
         nextLeg();
       }
-      const candidate = travelled + advance;
+      const candidate = Math.min(length, travelled + advance);
       // A short, intentional turnaround happens only when the horizontal
       // travel direction changes, not on every curve or at every waypoint.
       const before = atTravel(Math.max(0, candidate - 4));
       const after = atTravel(Math.min(length, candidate + 4));
       const horizontal = after.x - before.x;
       const wanted = horizontal > 0.8 ? 1 : horizontal < -0.8 ? -1 : heading;
-      if (wanted !== heading) {
+      // Avoid jitter near vertical headings: only turn when the new
+      // direction has persisted long enough after the previous reversal.
+      if (wanted !== heading && now - lastTurnAt > 2200) {
         heading = wanted;
+        lastTurnAt = now;
         facing.style.transform = 'scaleX(' + heading + ')';
-        turning = 0.68;
+        turning = 0.58;
       } else {
         travelled = candidate;
       }
@@ -203,8 +214,12 @@
     }, { threshold: 0.01 });
     observer.observe(pond);
   }
-  const motionObserver = new MutationObserver(syncRunning);
-  motionObserver.observe(root, { attributes: true, attributeFilter: ['class'] });
+  // Deliberately do NOT watch the root's class attribute here.
+  // This controller toggles lab-roaming itself: observing and re-adding
+  // that class caused a self-triggering MutationObserver microtask loop.
+  // The existing pause button updates its class synchronously before this
+  // listener runs, so the controller can stop without an observer.
+  if (toggle) toggle.addEventListener('click', syncRunning);
   document.addEventListener('visibilitychange', syncRunning);
   if (typeof reduced.addEventListener === 'function') {
     reduced.addEventListener('change', syncRunning);
