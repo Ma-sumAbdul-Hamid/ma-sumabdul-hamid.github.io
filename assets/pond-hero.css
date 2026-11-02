@@ -76,11 +76,14 @@ html.lab-roaming .ocean-swimmer-track{
 }
 html.lab-roaming .ocean-swimmer-track .ocean-robot-facing{
   animation:none;
-  transition:transform .68s cubic-bezier(.25,.7,.35,1);
+  /* Do not interpolate scaleX(-1) to scaleX(1): midway the entire wake
+     compresses to zero width and reappears as a tangled set of lines. */
+  transition:none;
 }
 .ocean-swimmer-track>svg{
   width:100%;height:auto;display:block;overflow:visible;
-  filter:drop-shadow(0 6px 6px rgba(23,71,89,.09));
+  /* Avoid offscreen GPU rasterization of the whole animated SVG. */
+  filter:none;
 }
 .ocean-swimmer-track .ocean-robot-facing{
   transform-box:fill-box;transform-origin:center;
@@ -95,24 +98,14 @@ html.lab-roaming .ocean-swimmer-track .ocean-robot-facing{
   animation:oceanScrewSpin 1.35s linear infinite;
 }
 .ocean-swimmer-track .ocean-fluid-vortex .ocean-stream{
-  fill:none;stroke:var(--lab-line);stroke-width:2.8;opacity:.79;
-  stroke-dasharray:9 11;animation:oceanVortexFlow 4s linear infinite;
+  fill:none;stroke:var(--lab-line);stroke-width:2.4;opacity:.68;
+  stroke-dasharray:7 14;animation:oceanVortexFlow 7s linear infinite;
 }
 .ocean-swimmer-track .ocean-fluid-vortex .ocean-stream-back{
-  opacity:.6;stroke-width:2.2;animation-duration:4.8s;
+  opacity:.46;stroke-width:1.9;animation-duration:8s;
 }
 .ocean-swimmer-track .ocean-fluid-vortex .ocean-stream-soft{
-  opacity:.34;stroke-width:1.8;stroke-dasharray:3 13;animation-duration:7s;
-}
-.ocean-swimmer-track .ocean-vortex-ring{
-  transform-box:fill-box;transform-origin:center;
-  animation:oceanVortexRotate 9.5s linear infinite;
-}
-.ocean-swimmer-track .ocean-vortex-arc{
-  stroke:var(--lab-line);stroke-width:2.1;opacity:.58;
-}
-.ocean-swimmer-track .ocean-vortex-arc.second{
-  stroke:var(--lab-coral);opacity:.66;stroke-width:2.5;
+  opacity:.5;stroke-width:2;stroke-dasharray:5 17;animation-duration:9s;
 }
 .ocean-swimmer-track .ocean-flow-arrow{
   stroke:var(--lab-coral);stroke-width:3;opacity:.78;
@@ -128,7 +121,8 @@ html.lab-roaming .ocean-swimmer-track .ocean-robot-facing{
   animation:oceanCargoFloat 4.6s ease-in-out infinite;
 }
 .ocean-swimmer-track .ocean-cargo-bead{
-  filter:drop-shadow(0 0 4px rgba(247,197,115,.55));
+  /* Gold gradient and halo already provide the bead's soft glow. */
+  filter:none;
 }
 .ocean-swimmer-track .ocean-cargo-halo{
   transform-box:fill-box;transform-origin:center;
@@ -201,7 +195,6 @@ html.lab-roaming .ocean-swimmer-track .ocean-robot-facing{
 /* The coils repeat every 26 SVG units so their travelling pattern is seamless. */
 @keyframes oceanScrewSpin{from{transform:translateX(-26px)}to{transform:translateX(0px)}}
 @keyframes oceanVortexFlow{to{stroke-dashoffset:-220}}
-@keyframes oceanVortexRotate{to{transform:rotate(360deg)}}
 @keyframes oceanArrowBreath{0%,100%{opacity:.48}50%{opacity:1}}
 @keyframes oceanVortexParticle{
   0%,100%{opacity:.28;transform:translate(-3px,2px)}
