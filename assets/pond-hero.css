@@ -68,6 +68,16 @@ html.dark{
   height:auto;will-change:transform;pointer-events:none;
   animation:oceanSwimAcross 46s linear infinite;
 }
+/* JS enhancement: roam across the pond without restarting at the viewport edge.
+   The original CSS route remains a no-JS fallback. */
+html.lab-roaming .ocean-swimmer-track{
+  left:0;top:0;animation:none;
+  will-change:transform;
+}
+html.lab-roaming .ocean-swimmer-track .ocean-robot-facing{
+  animation:none;
+  transition:transform .68s cubic-bezier(.25,.7,.35,1);
+}
 .ocean-swimmer-track>svg{
   width:100%;height:auto;display:block;overflow:visible;
   filter:drop-shadow(0 6px 6px rgba(23,71,89,.09));
@@ -170,8 +180,7 @@ html.dark{
 @keyframes oceanBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-11px)}}
 @keyframes oceanCompass{to{transform:rotate(360deg)}}
 @keyframes oceanTwinkle{0%,100%{opacity:.3}50%{opacity:.83}}
-/* One full-width round trip, with a gently bending swim path.
-   The turning animation lives on an INNER group so the text bubble stays upright. */
+/* Simple full-width fallback if scripting is disabled. */
 /* Constant-speed travel across the full viewport, with a short ~0.9 s
    turnaround at each edge. The orientation change occurs only while stopped,
    so it never produces an apparent stumble in the middle of the swim. */
