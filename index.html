@@ -79,48 +79,103 @@
   </svg>
   <!-- The swimmer is placed in responsive CSS pixel space so it traverses the
        ACTUAL viewport width on desktop and phones, not only the SVG viewBox. -->
+  <!-- Distinct helical robot, animated surrounding fluid and freely suspended cargo.
+       They are intentionally separate: the visual illustrates flow-mediated transport,
+       not a mechanically attached payload. The entire assembly turns as it travels. -->
   <div class="ocean-swimmer-track">
-    <svg viewBox="0 0 360 220" xmlns="http://www.w3.org/2000/svg" focusable="false">
-      <ellipse class="ocean-ripple" cx="175" cy="162" rx="68" ry="11" fill="none" stroke="var(--lab-line)" stroke-width="2" opacity=".4"/>
-      <ellipse class="ocean-ripple late" cx="183" cy="173" rx="47" ry="8" fill="none" stroke="var(--lab-line)" stroke-width="2" opacity=".34"/>
+    <svg viewBox="0 0 460 230" xmlns="http://www.w3.org/2000/svg" focusable="false">
+      <defs>
+        <clipPath id="ocean-screw-mask"><rect x="98" y="91" width="125" height="64" rx="19"/></clipPath>
+        <radialGradient id="ocean-cargo-gold" cx="32%" cy="25%" r="78%">
+          <stop offset="0%" stop-color="#FFF9D8"/>
+          <stop offset="51%" stop-color="#F9D68D"/>
+          <stop offset="100%" stop-color="#E8A85D"/>
+        </radialGradient>
+        <linearGradient id="ocean-robot-steel" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#F7FCFC"/>
+          <stop offset="46%" stop-color="#C7E3EA"/>
+          <stop offset="100%" stop-color="#88B5C4"/>
+        </linearGradient>
+      </defs>
+      <!-- A soft fluid ripple stays centered below the travelling assembly. -->
+      <ellipse class="ocean-ripple" cx="242" cy="176" rx="140" ry="12" fill="none" stroke="var(--lab-line)" stroke-width="1.6"/>
+      <ellipse class="ocean-ripple late" cx="253" cy="181" rx="94" ry="8" fill="none" stroke="var(--lab-line)" stroke-width="1.5"/>
       <g class="ocean-robot-facing">
-        <g class="ocean-robot-bob">
-          <ellipse cx="170" cy="154" rx="81" ry="10" fill="#2C708A" opacity=".13"/>
-          <g class="ocean-tail">
-            <path class="ocean-fin" d="M100 112L61 88l7 30-20 19 48-12Z"/>
-            <path class="ocean-ink" stroke-width="2.5" d="M66 92q28 26 1 42M77 94q27 24 1 41M89 96q26 20 0 35"/>
-            <path class="ocean-helix" d="M83 104q9-15 18 0t18 0M82 124q9 15 18 0t18 0"/>
+        <!-- Fluid streamlines wind between the helix and the bead. No connector joins them. -->
+        <g class="ocean-fluid-vortex" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path class="ocean-stream ocean-stream-back" d="M249 107C274 82 297 85 312 111S344 146 365 121"/>
+          <path class="ocean-stream ocean-stream-front" d="M256 130C277 150 299 161 320 136S345 108 362 126"/>
+          <path class="ocean-stream ocean-stream-soft" d="M259 114C284 113 295 95 316 98S343 113 352 116"/>
+          <path class="ocean-stream ocean-stream-soft" d="M256 145C282 140 301 168 326 153S343 141 359 139"/>
+          <g class="ocean-vortex-ring">
+            <path class="ocean-vortex-arc" d="M278 122C289 101 328 95 339 117C351 140 319 164 294 145"/>
+            <path class="ocean-vortex-arc second" d="M291 119C309 103 330 116 324 134S296 142 301 127"/>
           </g>
-          <path class="ocean-fin" d="M153 92l-4-29q23-13 44 7l-5 23Z"/>
-          <path class="ocean-fin" d="M151 138l-6 27q24 14 47-3l-7-24Z"/>
-          <path class="ocean-hull" d="M108 117Q113 78 165 77h57q48 6 52 42-5 38-49 42h-60q-51-4-57-44Z"/>
-          <path d="M117 116q0-32 46-32h17q-23 30 0 71h-17q-46-5-46-39Z" fill="#E8B575" opacity=".66"/>
-          <path class="ocean-ink" stroke-width="2.7" opacity=".45" d="M237 85q23 11 28 34-8 25-27 31"/>
-          <circle class="ocean-window" cx="201" cy="117" r="29"/>
-          <path d="M185 102q13-12 27-6" fill="none" stroke="#F3FDFF" stroke-width="4" stroke-linecap="round" opacity=".78"/>
-          <ellipse cx="192" cy="116" rx="3.5" ry="4" fill="#36596B"/>
-          <ellipse cx="211" cy="116" rx="3.5" ry="4" fill="#36596B"/>
-          <path class="ocean-ink" stroke-width="2.7" d="M193 126q8 7 17 0"/>
-          <circle cx="263" cy="121" r="5.8" fill="#D77F5F" stroke="#36596B" stroke-width="2.3"/>
-          <path class="ocean-ink" stroke-width="2.5" d="M142 84l-4-12M151 81l-1-15"/>
+          <path class="ocean-flow-arrow" d="M343 118l12 7-12 5"/>
+          <path class="ocean-flow-arrow" d="M298 155l9-1-3 9"/>
+          <circle class="ocean-vortex-speck" cx="281" cy="109" r="2.4"/>
+          <circle class="ocean-vortex-speck alt" cx="326" cy="90" r="2.9"/>
+          <circle class="ocean-vortex-speck" cx="344" cy="153" r="2.6"/>
+        </g>
+        <!-- The gold cargo is a separate, unattached bead following the induced flow. -->
+        <g class="ocean-cargo-bob">
+          <circle class="ocean-cargo-halo" cx="392" cy="125" r="33" fill="none" stroke="#F4CE87" stroke-width="2.4"/>
+          <circle class="ocean-cargo-halo outer" cx="392" cy="125" r="41" fill="none" stroke="#F4CE87" stroke-width="1.4"/>
+          <circle class="ocean-cargo-bead" cx="392" cy="125" r="21" fill="url(#ocean-cargo-gold)" stroke="#916047" stroke-width="2.7"/>
+          <circle cx="385" cy="115" r="5" fill="#FFFBDF" opacity=".95"/>
+          <path d="M381 132q12 9 23-1" fill="none" stroke="#CB905A" stroke-width="1.6" opacity=".65" stroke-linecap="round"/>
+          <g class="ocean-cargo-orbit">
+            <circle cx="415" cy="103" r="3.3" fill="#EFAE69" stroke="#916047" stroke-width="1.2"/>
+          </g>
+        </g>
+        <!-- Open, slender metallic corkscrew: ring coils are animated along the axis,
+             unlike a fish body or a submarine with fins. -->
+        <g class="ocean-robot-bob">
+          <ellipse cx="166" cy="163" rx="90" ry="9" fill="#255E73" opacity=".13"/>
+          <path class="ocean-robot-shaft" d="M78 122H246" fill="none" stroke="#4E8294" stroke-width="8" stroke-linecap="round"/>
+          <path d="M98 105q4-17 21-18h85q17 1 20 18v33q-4 17-20 18h-85q-17-1-21-18Z" fill="url(#ocean-robot-steel)" stroke="#345A6C" stroke-width="2.8"/>
+          <path d="M109 98h101" fill="none" stroke="#F8FFFF" stroke-width="3.3" stroke-linecap="round" opacity=".8"/>
+          <g clip-path="url(#ocean-screw-mask)">
+            <path d="M72 121H250" fill="none" stroke="#416D81" stroke-width="5.3" stroke-linecap="round" opacity=".75"/>
+            <!-- Oblique elliptical turns translate by one pitch for continuous rotation. -->
+            <g class="ocean-screw-spin" fill="none" stroke="#D17D63" stroke-width="7.1" stroke-linecap="round">
+              <ellipse cx="78" cy="122" rx="13" ry="29" transform="rotate(-19 78 122)"/>
+              <ellipse cx="104" cy="122" rx="13" ry="29" transform="rotate(-19 104 122)"/>
+              <ellipse cx="130" cy="122" rx="13" ry="29" transform="rotate(-19 130 122)"/>
+              <ellipse cx="156" cy="122" rx="13" ry="29" transform="rotate(-19 156 122)"/>
+              <ellipse cx="182" cy="122" rx="13" ry="29" transform="rotate(-19 182 122)"/>
+              <ellipse cx="208" cy="122" rx="13" ry="29" transform="rotate(-19 208 122)"/>
+              <ellipse cx="234" cy="122" rx="13" ry="29" transform="rotate(-19 234 122)"/>
+            </g>
+            <path d="M112 106h102" fill="none" stroke="#FFF5DB" stroke-width="2.7" stroke-linecap="round" opacity=".55"/>
+          </g>
+          <!-- Machined end caps, field indicator and small expressive status LEDs. -->
+          <rect x="75" y="109" width="23" height="27" rx="7" fill="#648FA0" stroke="#345A6C" stroke-width="2.8"/>
+          <path d="M76 115h20M76 130h20" stroke="#D4EEF5" stroke-width="2" opacity=".8"/>
+          <rect x="221" y="99" width="32" height="46" rx="10" fill="#F4E5CD" stroke="#345A6C" stroke-width="3"/>
+          <path d="M230 101v42" stroke="#D1B891" stroke-width="2.5" opacity=".8"/>
+          <rect x="249" y="108" width="19" height="29" rx="5" fill="#77AFBE" stroke="#345A6C" stroke-width="2.6"/>
+          <path d="M250 111h17v11h-17Z" fill="#D67D62" opacity=".96"/>
+          <path d="M250 123h17v11h-17Z" fill="#6C9EB9"/>
+          <path d="M268 115h10M268 130h10" class="ocean-magnetic-field" fill="none" stroke="var(--lab-coral)" stroke-width="2.3" stroke-linecap="round"/>
+          <rect x="225" y="111" width="19" height="15" rx="6" fill="#A6D7DB" stroke="#345A6C" stroke-width="1.8"/>
+          <circle cx="231" cy="117" r="2" fill="#345A6C"/>
+          <circle cx="239" cy="117" r="2" fill="#345A6C"/>
+          <path d="M232 122q3.3 2.5 6.4 0" fill="none" stroke="#345A6C" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M87 108l-8-13" stroke="#345A6C" stroke-width="2.4" stroke-linecap="round"/>
+          <circle class="ocean-antenna-light" cx="78" cy="94" r="4.3" fill="#F0C483" stroke="#345A6C" stroke-width="1.6"/>
         </g>
       </g>
-      <!-- Cargo is drifting with the flow rather than rigidly attached to the robot. -->
-      <g class="ocean-cargo">
-        <circle class="ocean-orb" cx="314" cy="161" r="23"/>
-        <path d="M301 150q10-13 23-4" fill="none" stroke="#FFF7DD" stroke-width="4.5" stroke-linecap="round" opacity=".9"/>
-        <circle cx="308" cy="161" r="2.7" fill="#36596B"/><circle cx="320" cy="161" r="2.7" fill="#36596B"/>
-        <path d="M309 169q5 4 10-1" fill="none" stroke="#36596B" stroke-width="2.1" stroke-linecap="round"/>
-      </g>
+      <!-- Occasional small mechanical chirp, kept upright during the turnaround. -->
       <g class="ocean-word">
-        <path class="ocean-talk" d="M178 15q0-10 12-10h67q13 0 13 12v23q0 11-13 11h-36l-12 11-2-11h-16q-13 0-13-12Z"/>
-        <text class="ocean-talk-text" x="197" y="34">bloop!</text>
+        <path class="ocean-talk" d="M183 9q0-8 10-8h76q11 0 11 10v24q0 10-11 10h-36l-12 12-1-12h-27q-10 0-10-10Z"/>
+        <text class="ocean-talk-text" x="201" y="29">whirr!</text>
       </g>
     </svg>
   </div>
 </div>
 <div class="lab-pond-controls">
-  <span class="lab-pond-label">A tiny explorer in a very big pond</span>
+  <span class="lab-pond-label">Magnetic helix · fluid vortex · free cargo</span>
   <button class="lab-motion-toggle" type="button" data-lab-motion-toggle aria-label="Pause decorative animations" aria-pressed="false">
     <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><g data-pause-icon><rect x="3" y="2.5" width="3.7" height="11" rx="1.1"/><rect x="9.3" y="2.5" width="3.7" height="11" rx="1.1"/></g><path data-play-icon d="M4 2.5v11l9-5.5Z"/></svg>
     <span data-motion-label>Pause motion</span>
