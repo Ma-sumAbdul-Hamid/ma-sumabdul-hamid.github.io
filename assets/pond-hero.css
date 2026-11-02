@@ -66,7 +66,7 @@ html.dark{
 .ocean-swimmer-track{
   position:absolute;left:0;top:52%;z-index:0;width:var(--pond-swimmer-width);
   height:auto;will-change:transform;pointer-events:none;
-  animation:oceanSwimAcross 46s ease-in-out infinite;
+  animation:oceanSwimAcross 46s linear infinite;
 }
 .ocean-swimmer-track>svg{
   width:100%;height:auto;display:block;overflow:visible;
@@ -74,7 +74,7 @@ html.dark{
 }
 .ocean-swimmer-track .ocean-robot-facing{
   transform-box:fill-box;transform-origin:center;
-  animation:oceanTurnAround 46s ease-in-out infinite;
+  animation:oceanTurnAround 46s linear infinite;
 }
 .ocean-swimmer-track .ocean-robot-bob{
   transform-box:fill-box;transform-origin:center;
@@ -172,16 +172,17 @@ html.dark{
 @keyframes oceanTwinkle{0%,100%{opacity:.3}50%{opacity:.83}}
 /* One full-width round trip, with a gently bending swim path.
    The turning animation lives on an INNER group so the text bubble stays upright. */
+/* Constant-speed travel across the full viewport, with a short ~0.9 s
+   turnaround at each edge. The orientation change occurs only while stopped,
+   so it never produces an apparent stumble in the middle of the swim. */
 @keyframes oceanSwimAcross{
   0%{transform:translate3d(calc(100vw - var(--pond-swimmer-width) - 25px),2px,0)}
-  22%{transform:translate3d(60vw,-24px,0)}
-  47%,50%{transform:translate3d(18px,12px,0)}
-  73%{transform:translate3d(46vw,-30px,0)}
-  97%,100%{transform:translate3d(calc(100vw - var(--pond-swimmer-width) - 25px),2px,0)}
+  48%,50%{transform:translate3d(18px,12px,0)}
+  98%,100%{transform:translate3d(calc(100vw - var(--pond-swimmer-width) - 25px),2px,0)}
 }
 @keyframes oceanTurnAround{
-  0%,47%{transform:scaleX(-1)}
-  50%,97%{transform:scaleX(1)}
+  0%,48%{transform:scaleX(-1)}
+  50%,98%{transform:scaleX(1)}
   100%{transform:scaleX(-1)}
 }
 @keyframes oceanRobotBob{
